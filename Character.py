@@ -31,5 +31,22 @@ class Character(Entity):
     def get_lives(self):
         """Return the number of lives left."""
         return self.lives
+    
+    
+    
+    def set_lives(self, lives):
+        """Set the number of lives."""
+        self.lives = lives
+        if self.lives <= 0:
+            self.is_alive = False
+        else:
+            self.is_alive = True
+        print(f"Character lives set to {self.lives}")
+
+            
+    def is_alive(self):
+        """Check if the character is alive."""
+        return self.is_alive    
+                    
             
 
