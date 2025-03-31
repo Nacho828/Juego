@@ -1,5 +1,9 @@
 from Player1 import Player
-from Boss1 import Boss
+try:
+    from Boss1 import Boss
+except ImportError:
+    print("Error: Could not import 'Boss' from 'Boss1'. Ensure the module and class exist.")
+    Boss = None  # Define a fallback to avoid runtime errors
 
 class Game:
     def __init__(self):
@@ -69,7 +73,7 @@ class Game:
     def spawn_boss(self):
         """Spawn the final boss when the player defeats an enemy."""
         if self.is_running:
-            self.boss = Boss(speed=2)  # Boss moves twice as fast
+            self.opponent = Boss(speed=2)  # Boss moves twice as fast
             print("Final boss has appeared!")
         else:
             print("Game is not running. Cannot spawn boss.")

@@ -1,6 +1,6 @@
 from Oponent1 import Opponent
 
-class JefeFinal():
+class Boss1():
     def __init__(self, velocidad_base, vida):
         super().__init__(velocidad_base, vida)
         self.velocidad = velocidad_base * 2  # Se mueve el doble de rápido
