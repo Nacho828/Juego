@@ -1,3 +1,7 @@
+from Player1 import Player
+from Oponent1 import Enemigo
+from boss import Boss
+
 class Game:
     def __init__(self):
         self.score = 0
@@ -44,3 +48,29 @@ class Game:
             print("Enemy converted to star! Score increased.")
         else:
             print("Game is not running. Cannot convert enemy.")
+    
+    def initialize_lives(self):
+        """Initialize the player's lives."""
+        self.lives = 3
+
+    def lose_life(self):
+        """Reduce the player's lives by one and check if the game should end."""
+        if self.is_running:
+            if self.lives > 0:
+                self.lives -= 1
+                print(f"Player hit! Lives remaining: {self.lives}")
+                if self.lives == 0:
+                    print("No lives left. Game over!")
+                    self.end_game()
+            else:
+                print("No lives left. Game is already over.")
+        else:
+            print("Game is not running. Cannot lose a life.")
+            
+    def spawn_boss(self):
+        """Spawn the final boss when the player defeats an enemy."""
+        if self.is_running:
+            self.boss = Boss(speed=2)  # Boss moves twice as fast
+            print("Final boss has appeared!")
+        else:
+            print("Game is not running. Cannot spawn boss.")
