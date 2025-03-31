@@ -1,5 +1,4 @@
 from Player1 import Player
-from Oponent1 import Opponent
 from Boss1 import Boss
 
 class Game:
