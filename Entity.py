@@ -1,31 +1,37 @@
 class Entity:
-    """
-    Clase base que representa cada elemento del juego.
-    """
-
-    def __init__(self, name, position):
-        """
-        Inicializa una nueva entidad.
-
-        :param name: Nombre de la entidad.
-        :param position: Posición de la entidad en el juego (x, y).
-        """
-        self.name = name
-        self.position = position
+    def __init__(self, x, y, image):
+        self.x = x
+        self.y = y
+        self.image = image
 
     def move(self, dx, dy):
-        """
-        Mueve la entidad a una nueva posición.
+        """Move the entity by dx and dy."""
+        self.x += dx
+        self.y += dy
 
-        :param dx: Desplazamiento en el eje x.
-        :param dy: Desplazamiento en el eje y.
-        """
-        self.position = (self.position[0] + dx, self.position[1] + dy)
+    def draw(self, screen):
+        """Draw the entity on the given screen."""
+        screen.blit(self.image, (self.x, self.y))
+        
+    def get_position(self):
+        """Return the current position of the entity."""
+        return (self.x, self.y)
 
-    def __str__(self):
-        """
-        Representación en cadena de la entidad.
+    def set_position(self, x, y):
+        """Set the position of the entity."""
+        self.x = x
+        self.y = y
 
-        :return: Una cadena que describe la entidad.
-        """
-        return f"{self.name} at position {self.position}"
+    def get_image(self):
+        """Return the image of the entity."""
+        return self.image
+    
+    def set_image(self, image):
+        """Set the image of the entity."""
+        self.image = image
+
+            
+    def get_rect(self):
+        """Return the rect of the entity."""
+
+            
