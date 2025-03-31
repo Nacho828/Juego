@@ -36,3 +36,11 @@ class Game:
         """Return a string representation of the game state."""
         return (f"Game(is_running={self.is_running}, score={self.score}, "
                 f"player={self.player}, opponent={self.opponent})")
+        
+    def convert_enemy_to_star(self):
+        """Simulate converting an enemy to a star and increment the score."""
+        if self.is_running:
+            self.score += 1
+            print("Enemy converted to star! Score increased.")
+        else:
+            print("Game is not running. Cannot convert enemy.")
