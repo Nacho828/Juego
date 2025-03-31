@@ -1,4 +1,4 @@
-from Entity import Entity
+from Entity1 import Entity
 
 class Character(Entity):
     def __init__(self, lives):
@@ -47,6 +47,6 @@ class Character(Entity):
     def is_alive(self):
         """Check if the character is alive."""
         return self.is_alive    
-                    
+
             
 

@@ -1,4 +1,4 @@
-from Character import Character
+from Character1 import Character
 
 class Player(Character):
     def __init__(self, score=0, lives=3):

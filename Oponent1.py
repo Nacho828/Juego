@@ -1,4 +1,4 @@
-from Character import Character
+from Character1 import Character
 
 class Opponent(Character):
     def __init__(self, name, health, is_star=False):
@@ -26,7 +26,7 @@ class Opponent(Character):
 
     def set_star_status(self, is_star):
         """Set the star status of the opponent."""  
-                                            
+
     
     
     
