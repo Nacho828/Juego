@@ -1,6 +1,6 @@
 from Player1 import Player
 from Oponent1 import Opponent
-from boss import Boss
+from Boss1 import Boss
 
 class Game:
     def __init__(self):
