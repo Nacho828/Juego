@@ -1,5 +1,5 @@
 from Player1 import Player
-from Oponent1 import Enemigo
+from Oponent1 import Opponent
 from boss import Boss
 
 class Game:
