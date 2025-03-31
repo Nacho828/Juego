@@ -1,30 +1,65 @@
 from Oponent1 import Opponent
 
-class Boss1(Opponent):
-    def __init__(self, speed):
-        self.speed = speed 
+class Boss(Opponent):
+    def __init__(self, x, y, speed):
+        # Llama al constructor de la clase base Opponent
+        super().__init__(x, y, speed * 2)  # El jefe final se mueve el doble de rápido
 
-    def mover(self):
-        # Lógica para mover al jefe final
-        print(f"El Jefe Final se mueve a una velocidad de {self.velocidad}.")
+    def special_attack(self):
+        # Implementa un ataque especial del jefe final
+        print("El jefe final realiza un ataque especial devastador.")
 
-    def atacar(self):
-        # Lógica para el ataque del jefe final
-        print("El Jefe Final lanza un ataque poderoso.")
+    def reset(self):
+        # Resetea el estado del jefe final
+        super().reset()
+        print("El jefe final ha sido reseteado.")
+    def serialize(self):
+        """"
+        "Deserializa el estado del jefe final desde un diccionario."
+        """
+        data = super().serialize()
+        data.update({
+            "special_attack": self.special_attack
+        })
+        return data
+    
+    def deserialize(self, data):
+        """"
+        "Deserializa el estado del jefe final desde un diccionario."
+        """
+        super().deserialize(data)
+        self.special_attack = data["special_attack"]
 
     def __str__(self):
-        return f"JefeFinal(velocidad={self.velocidad}, vida={self.vida})"
-
-
-    def get_velocidad(self):    
-        """Devuelve la velocidad del jefe final."""
-        return self.velocidad
+        """
+        Devuelve una representación en cadena del jefe final.
+        :return: Una cadena que representa el estado del jefe final.
+        """
+        return f"Jefe Final en ({self.x}, {self.y}) con velocidad {self.speed}"
     
-    def set_velocidad(self, velocidad):
-        """Establece la velocidad del jefe final."""
-        
-        self.velocidad = velocidad
-        print(f"Velocidad del Jefe Final establecida a {self.velocidad}")
+    def move(self):
+        # Implementa la lógica de movimiento del jefe final
+        print(f"El jefe final se mueve a ({self.x}, {self.y})")
+    def hit_target(self):
+        # Implementa la lógica para verificar si el jefe final golpea un objetivo
+        print("El jefe final ha golpeado un objetivo.")
+
+
+    def take_damage(self, damage):
+        """
+        Reduce la salud del jefe final al recibir daño.
+        :param damage: Cantidad de daño recibido.
+        """
+        self.health -= damage
+        print(f"El jefe final recibe {damage} de daño. Salud restante: {self.health}")
+        if self.health <= 0:
+            self.defeated()
+
+    def defeated(self):
+        """
+        Lógica para manejar cuando el jefe final es derrotado.
+        """
+        print("¡El jefe final ha sido derrotado!")
         
 
                                                         

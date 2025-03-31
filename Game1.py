@@ -1,10 +1,6 @@
 from Player1 import Player
-try:
-    from Boss1 import Boss
-except ImportError:
-    print("Error: Could not import 'Boss' from 'Boss1'. Ensure the module and class exist.")
-    Boss = None  # Define a fallback to avoid runtime errors
-
+from Boss1 import Boss
+from Oponent1 import Opponent
 class Game:
     def __init__(self):
         self.score = 0
