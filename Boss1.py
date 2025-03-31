@@ -1,9 +1,8 @@
 from Oponent1 import Opponent
 
-class Boss1():
-    def __init__(self, velocidad_base, vida):
-        super().__init__(velocidad_base, vida)
-        self.velocidad = velocidad_base * 2  # Se mueve el doble de rápido
+class Boss1(Opponent):
+    def __init__(self, speed):
+        self.speed = speed 
 
     def mover(self):
         # Lógica para mover al jefe final
