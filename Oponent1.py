@@ -1,6 +1,6 @@
 import pygame
 import random
-from projectile import Projectile
+from projectile import EnemyProjectile
 class Opponent:
     def __init__(self, x, y, sprite_path, size=(50, 50)):
         self.image = pygame.image.load(sprite_path)
@@ -29,7 +29,7 @@ class Opponent:
     def shoot(self):
         """Disparar un proyectil hacia abajo."""
         if random.randint(1, 100) <= 5:  # Probabilidad de disparar (5%)
-            projectile = Projectile(self.rect.centerx, self.rect.bottom, (255, 0, 0))  # Proyectil rojo
+            projectile = EnemyProjectile(self.rect.centerx, self.rect.bottom)  # Proyectil rojo hacia abajo
             self.projectiles.append(projectile)
 
     def update_projectiles(self, screen_height):
