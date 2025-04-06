@@ -17,7 +17,7 @@ def draw_gradient(surface, color1, color2):
 class Game:
     def __init__(self):
         pygame.init()
-        self.screen = pygame.display.set_mode((1920, 1080))
+        self.screen = pygame.display.set_mode((1920,1080))
         pygame.display.set_caption("Juego Arcade")
         self.clock = pygame.time.Clock()
         self.is_running = False
@@ -48,27 +48,32 @@ class Game:
         # Dibujar y mover a los enemigos
         for opponent in self.opponents:
             opponent.move(self.screen.get_width())
+            opponent.shoot()  # Hacer que los enemigos disparen
+            opponent.update_projectiles(self.screen.get_height())  # Actualizar proyectiles
             opponent.draw(self.screen)
 
-            # Verificar colisiones entre el jugador y los enemigos
-            if self.player.rect.colliderect(opponent.rect):
-                self.lives -= 1  # Reducir vidas si hay colisión
-                print(f"Colisión detectada! Vidas restantes: {self.lives}")
-                if self.lives <= 0:
-                    self.is_running = False  # Terminar el juego si no hay vidas
+            # Detectar colisiones entre los proyectiles del enemigo y el jugador
+            for projectile in opponent.projectiles:
+                if projectile.rect.colliderect(self.player.rect):  # Si hay colisión
+                    self.lives -= 1  # Reducir la vida del jugador
+                    opponent.projectiles.remove(projectile)  # Eliminar el proyectil
+                    if self.lives <= 0:
+                        self.is_running = False  # Terminar el juego si el jugador muere
 
         # Dibujar y mover los proyectiles del jugador
         for projectile in self.projectiles:
             projectile.move()
             projectile.draw(self.screen)
 
-            # Verificar colisiones entre proyectiles y enemigos
+            # Detectar colisiones entre proyectiles del jugador y enemigos
             for opponent in self.opponents:
-                if projectile.rect.colliderect(opponent.rect):
-                    self.opponents.remove(opponent)  # Eliminar enemigo si hay colisión
-                    self.projectiles.remove(projectile)  # Eliminar proyectil
-                    self.score += 10  # Incrementar puntuación
-                    print(f"Enemigo eliminado! Puntuación: {self.score}")
+                if projectile.rect.colliderect(opponent.rect):  # Si hay colisión
+                    opponent.take_damage(1)  # Reducir la vida del enemigo
+                    self.projectiles.remove(projectile)  # Eliminar el proyectil
+                    break
+
+        # Eliminar enemigos con vida <= 0
+        self.opponents = [opponent for opponent in self.opponents if opponent.health > 0]
 
         pygame.display.flip()
 
@@ -86,14 +91,11 @@ class Game:
 
     def shoot(self):
         """Crear un nuevo proyectil desde la posición del jugador."""
-        projectile = PlayerProjectile(self.player.rect.centerx, self.player.rect.top)  # Proyectil hacia arriba
-        self.projectiles.append(projectile)
-
-        # Hacer que los enemigos disparen aleatoriamente
-        for opponent in self.opponents:
-            if random.randint(0, 100) < 5:  # Probabilidad del 5% de disparar
-                enemy_projectile = PlayerProjectile(opponent.rect.centerx, opponent.rect.bottom)
-                self.projectiles.append(enemy_projectile)
+        try:
+            projectile = PlayerProjectile(self.player.rect.centerx, self.player.rect.top)  # Proyectil hacia arriba
+            self.projectiles.append(projectile)
+        except AttributeError as e:
+            print(f"Error al disparar: {e}")
 
     def run(self):
         """Bucle principal del juego."""
@@ -103,4 +105,3 @@ class Game:
             self.update()
             self.clock.tick(60)  # Limitar a 60 FPS
         pygame.quit()
-
