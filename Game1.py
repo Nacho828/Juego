@@ -1,4 +1,5 @@
 import pygame
+import random
 from Boss1 import Boss
 from Player1 import Player
 from Oponent1 import Opponent
@@ -23,9 +24,11 @@ class Game:
         self.score = 0
         self.lives = 3
         self.player = Player(375, 500)  # Posición inicial del jugador
-        self.opponents = [Opponent(100, 50), Opponent(300, 50), Opponent(500, 50)]  # Lista de enemigos
-        self.projectiles = []  # Lista para almacenar los proyectiles
-
+        self.opponents = [
+            Opponent(50, 50),   # Enemigo 1 más cerca del borde izquierdo
+            Opponent(200, 200), # Enemigo 2 más abajo
+            Opponent(400, 100)  # Enemigo 3 en una posición intermedia
+        ]  # Lista para almacenar los proyectile
     def start(self):
         """Inicia el juego."""
         self.is_running = True
@@ -35,8 +38,8 @@ class Game:
 
     def update(self):
         """Actualizar la lógica del juego."""
-        # Dibujar un degradado en el fondo
-        draw_gradient(self.screen, (0, 0, 128), (0, 128, 255))  # De azul oscuro a azul claro
+        # Rellenar el fondo con un color sólido (negro en este caso)
+        self.screen.fill((0, 0, 0))  # Color negro
 
         # Dibujar al jugador
         self.player.draw(self.screen)

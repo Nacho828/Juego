@@ -2,8 +2,8 @@ import pygame
 
 class Opponent:
     def __init__(self, x, y):
-        self.image = pygame.image.load("assets/opponent.png")  # Cargar imagen del enemigo
-        self.image = pygame.transform.scale(self.image, (50, 50))  # Escalar la imagen
+        self.image = pygame.Surface((50, 50))  # Crear un rectángulo temporal
+        self.image.fill((255, 0, 0))  # Color rojo para el enemigo
         self.rect = self.image.get_rect()
         self.rect.topleft = (x, y)
         self.speed = 3  # Velocidad de movimiento horizontal
