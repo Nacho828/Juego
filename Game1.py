@@ -23,10 +23,20 @@ class Game:
         self.score = 0
         print("Game started!")
         while self.running:
-            self.handle_events()  # Maneja los eventos del jugador
-            self.update()         # Actualiza la lógica del juego
-            self.draw()           # Dibuja los elementos en la pantalla
-            self.clock.tick(60)   # Limita a 60 FPS
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:  # Cerrar ventana
+                    self.running = False
+                elif event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_LEFT:
+                        self.player.move(-5, 0)  # Mueve al jugador a la izquierda
+                    elif event.key == pygame.K_RIGHT:
+                        self.player.move(5, 0)   # Mueve al jugador a la derecha
+                    elif event.key == pygame.K_SPACE:
+                        self.convert_enemy_to_star()  # Convierte al enemigo en estrella
+
+            self.update()  # Actualiza la lógica del juego
+            self.draw()    # Dibuja los elementos en la pantalla
+            self.clock.tick(60)  # Limita a 60 FPS
 
         pygame.quit()
 

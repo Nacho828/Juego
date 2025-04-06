@@ -1,18 +1,27 @@
 import os
 os.environ["SDL_AUDIODRIVER"] = "dummy"  # Desactiva el audio
 
-try:
-    from Game1 import Game
-except ImportError:
-    print("Error: No se pudo importar 'Game' desde 'Game1'. Verifica que el archivo 'Game1.py' exista y contenga la clase 'Game'.")
-    raise
-
+import pygame
+from Game1 import Game
 
 def main():
-    print("¡Bienvenido al juego!")
-    # Aquí puedes agregar la lógica principal de tu juego
+    pygame.init()
+    screen = pygame.display.set_mode((800, 600))
+    pygame.display.set_caption("Prueba de Pygame")
+
     game = Game()
-    game.start()
+    running = True
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+
+        screen.fill((0, 0, 0))  # Fondo negro
+        game.update()  # Actualiza la lógica del juego
+        game.draw()    # Dibuja los elementos en la pantalla
+        pygame.display.flip()  # Actualiza la pantalla
+
+    pygame.quit()
 
 if __name__ == "__main__":
-    main()  # Llama correctamente a la función main
+    main()
