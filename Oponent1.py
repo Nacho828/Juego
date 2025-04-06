@@ -1,10 +1,10 @@
 import pygame
 
 class Opponent:
-    def __init__(self, x, y, sprite_path):
+    def __init__(self, x, y, sprite_path, size=(50, 50)):
         # Cargar la imagen del enemigo desde el archivo proporcionado
         self.image = pygame.image.load(sprite_path)
-        self.image = pygame.transform.scale(self.image, (50, 50))  # Escalar la imagen
+        self.image = pygame.transform.scale(self.image, size)  # Escalar la imagen al tamaño especificado
         self.rect = self.image.get_rect()
         self.rect.topleft = (x, y)
         self.speed = 3  # Velocidad de movimiento horizontal
