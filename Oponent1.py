@@ -1,6 +1,6 @@
 import pygame
 import random
-
+from projectile import Projectile
 class Opponent:
     def __init__(self, x, y, sprite_path, size=(50, 50)):
         self.image = pygame.image.load(sprite_path)
