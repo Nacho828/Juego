@@ -1,28 +1,9 @@
-import os
-os.environ["SDL_AUDIODRIVER"] = "dummy"  # Desactiva el audio
-
-import pygame
 from Game1 import Game
 
 def main():
-    pygame.init()
-    pygame.font.init()  # Inicializa el módulo de fuentes
-    screen = pygame.display.set_mode((800, 600))
-    pygame.display.set_caption("Prueba de Pygame")
-
+    print("¡Bienvenido al juego!")
     game = Game()
-    running = True
-    while running:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                running = False
-
-        screen.fill((0, 0, 0))  # Fondo negro
-        game.update()  # Actualiza la lógica del juego
-        game.draw()    # Dibuja los elementos en la pantalla
-        pygame.display.flip()  # Actualiza la pantalla
-
-    pygame.quit()
+    game.run()  # Ejecuta el bucle principal del juego
 
 if __name__ == "__main__":
     main()
