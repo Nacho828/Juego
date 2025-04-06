@@ -93,6 +93,5 @@ class Game:
             else:
                 print("No lives left. Game is already over.")
         else:
-
             print("Game is not running. Cannot lose a life.")         
             print("Game is not running. Cannot lose a life.")

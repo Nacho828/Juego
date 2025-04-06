@@ -1,3 +1,6 @@
+import os
+os.environ["SDL_AUDIODRIVER"] = "dummy"  # Desactiva el audio
+
 try:
     from Game1 import Game
 except ImportError:
@@ -11,5 +14,4 @@ def main():
     game = Game()
     game.start()
 if __name__ == "__main__":
-    main()
-    
+    main
