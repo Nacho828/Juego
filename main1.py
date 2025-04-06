@@ -6,6 +6,7 @@ from Game1 import Game
 
 def main():
     pygame.init()
+    pygame.font.init()  # Inicializa el módulo de fuentes
     screen = pygame.display.set_mode((800, 600))
     pygame.display.set_caption("Prueba de Pygame")
 

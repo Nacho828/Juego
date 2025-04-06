@@ -66,7 +66,7 @@ class Game:
         self.opponent.draw(self.screen)  # Dibuja al oponente
 
         # Dibuja el puntaje y las vidas
-        font = pygame.font.Font(None, 36)
+        font = pygame.font.Font(None, 36)  # Fuente predeterminada de Pygame
         score_text = font.render(f"Score: {self.score}", True, (255, 255, 255))
         lives_text = font.render(f"Lives: {self.lives}", True, (255, 255, 255))
         self.screen.blit(score_text, (10, 10))
