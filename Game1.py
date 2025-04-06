@@ -3,7 +3,7 @@ import random
 from Boss1 import Boss
 from Player1 import Player
 from Oponent1 import Opponent
-from projectile import Projectiles
+from projectile import Projectile
 
 def draw_gradient(surface, color1, color2):
     """Dibujar un degradado en el fondo."""
