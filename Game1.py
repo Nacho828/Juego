@@ -40,40 +40,21 @@ class Game:
 
     def update(self):
         """Actualizar la lógica del juego."""
-        self.screen.fill((0, 0, 0))  # Fondo negro
+        # Dibujar un degradado en el fondo
+        draw_gradient(self.screen, (0, 0, 128), (0, 128, 255))  # De azul oscuro a azul claro
 
         # Dibujar al jugador
         self.player.draw(self.screen)
 
         # Dibujar y mover a los enemigos
         for opponent in self.opponents:
-            opponent.move(self.screen.get_width())
-            opponent.shoot()  # Hacer que los enemigos disparen
-            opponent.update_projectiles(self.screen.get_height())  # Actualizar proyectiles
+            opponent.move(self.screen.get_width())  # Pasar el ancho de la pantalla
             opponent.draw(self.screen)
 
-            # Detectar colisiones entre los proyectiles del enemigo y el jugador
-            for projectile in opponent.projectiles:
-                if projectile.rect.colliderect(self.player.rect):  # Si hay colisión
-                    self.lives -= 1  # Reducir la vida del jugador
-                    opponent.projectiles.remove(projectile)  # Eliminar el proyectil
-                    if self.lives <= 0:
-                        self.is_running = False  # Terminar el juego si el jugador muere
-
-        # Dibujar y mover los proyectiles del jugador
+        # Dibujar y mover los proyectiles
         for projectile in self.projectiles:
             projectile.move()
             projectile.draw(self.screen)
-
-            # Detectar colisiones entre proyectiles del jugador y enemigos
-            for opponent in self.opponents:
-                if projectile.rect.colliderect(opponent.rect):
-                    opponent.take_damage(1)
-                    self.projectiles.remove(projectile)
-                    break
-
-        # Eliminar enemigos con vida <= 0
-        self.opponents = [opponent for opponent in self.opponents if opponent.health > 0]
 
         # Eliminar proyectiles que salgan de la pantalla
         self.projectiles = [p for p in self.projectiles if p.rect.bottom > 0]

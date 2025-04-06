@@ -1,14 +1,15 @@
 import pygame
 import random
 from projectile import EnemyProjectile
+
 class Opponent:
-    def __init__(self, x, y, sprite_path, size=(50, 50)):
-        self.image = pygame.image.load(sprite_path)
-        self.image = pygame.transform.scale(self.image, size)
+    def __init__(self, x, y):
+        self.image = pygame.Surface((50, 50))  # Crear un rectángulo temporal
+        self.image.fill((255, 0, 0))  # Color rojo para el enemigo
         self.rect = self.image.get_rect()
         self.rect.topleft = (x, y)
-        self.speed = 3
-        self.direction = 1
+        self.speed = 3  # Velocidad de movimiento horizontal
+        self.direction = 1  # 1 para derecha, -1 para izquierda
         self.health = 10
         self.projectiles = []  # Lista para almacenar los proyectiles del enemigo
         self.shoot_cooldown = 0  # Temporizador para controlar el disparo
@@ -24,8 +25,10 @@ class Opponent:
     def move(self, screen_width):
         """Mover al enemigo horizontalmente de lado a lado."""
         self.rect.x += self.speed * self.direction
+
+        # Cambiar de dirección al alcanzar los bordes de la pantalla
         if self.rect.right >= screen_width or self.rect.left <= 0:
-            self.direction *= -1
+            self.direction *= -1  # Invertir la dirección
 
     def shoot(self):
         """Disparar un proyectil hacia abajo."""
