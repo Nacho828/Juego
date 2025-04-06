@@ -17,7 +17,7 @@ def draw_gradient(surface, color1, color2):
 class Game:
     def __init__(self):
         pygame.init()
-        self.screen = pygame.display.set_mode((1920,1080))
+        self.screen = pygame.display.set_mode((800, 600))
         pygame.display.set_caption("Juego Arcade")
         self.clock = pygame.time.Clock()
         self.is_running = False
@@ -75,8 +75,11 @@ class Game:
 
     def shoot(self):
         """Crear un nuevo proyectil desde la posición del jugador."""
-        projectile = PlayerProjectile(self.player.rect.centerx, self.player.rect.top)  # Proyectil amarillo hacia arriba
-        self.projectiles.append(projectile)
+        try:
+            projectile = PlayerProjectile(self.player.rect.centerx, self.player.rect.top)  # Proyectil hacia arriba
+            self.projectiles.append(projectile)
+        except AttributeError as e:
+            print(f"Error al disparar: {e}")
 
     def run(self):
         """Bucle principal del juego."""
