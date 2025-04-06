@@ -23,11 +23,11 @@ class Game:
         self.is_running = False
         self.score = 0
         self.lives = 3
-        self.player = Player(375, 500)
+        self.player = Player(960, 700)
         self.opponents = [
-            Opponent(700, 150, "assets/enemy1.png"),
-            Opponent(1200, 200, "assets/enemy2.png"),
-            Opponent(200, 400, "assets/enemy3.png")
+            Opponent(700, 150, "assets/enemy1.png", size=(150, 120)),
+            Opponent(1200, 250, "assets/enemy2.png"),
+            Opponent(200, 350, "assets/enemy3.png")
         ]
         self.projectiles = []  # Lista para almacenar los proyectiles del jugador
 
