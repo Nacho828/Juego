@@ -8,13 +8,9 @@ class Character(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.topleft = (x, y)
 
-class Opponent(pygame.sprite.Sprite):
+class Opponent(Character):
     def __init__(self, x, y):
-        super().__init__()
-        self.image = pygame.Surface((50, 50))  # Tamaño del oponente
-        self.image.fill((255, 0, 0))  # Color rojo
-        self.rect = self.image.get_rect()
-        self.rect.topleft = (x, y)
+        super().__init__(x, y)
 
     def move(self):
         """Mueve al oponente automáticamente."""
