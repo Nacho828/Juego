@@ -28,7 +28,9 @@ class Game:
             Opponent(50, 50),   # Enemigo 1 más cerca del borde izquierdo
             Opponent(200, 200), # Enemigo 2 más abajo
             Opponent(400, 100)  # Enemigo 3 en una posición intermedia
-        ]  # Lista para almacenar los proyectile
+        ]
+        self.projectiles = []  # Lista para almacenar los proyectiles
+
     def start(self):
         """Inicia el juego."""
         self.is_running = True
@@ -50,7 +52,7 @@ class Game:
             opponent.draw(self.screen)
 
         # Dibujar y mover los proyectiles
-        for projectile in self.projectiles:
+        for projectile in self.projectile:
             projectile.move()
             projectile.draw(self.screen)
 
