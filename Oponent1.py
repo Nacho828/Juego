@@ -11,6 +11,7 @@ class Opponent:
         self.direction = 1
         self.health = 10
         self.projectiles = []  # Lista para almacenar los proyectiles del enemigo
+        self.shoot_cooldown = 0  # Temporizador para controlar el disparo
 
     def draw(self, screen):
         """Dibujar al enemigo en la pantalla."""
@@ -28,12 +29,16 @@ class Opponent:
 
     def shoot(self):
         """Disparar un proyectil hacia abajo."""
-        if random.randint(1, 100) <= 1:  # Probabilidad de disparar (2%)
+        if self.shoot_cooldown == 0 and random.randint(1, 100) <= 1:  # Probabilidad de disparar (5%)
             projectile = EnemyProjectile(self.rect.centerx, self.rect.bottom)  # Proyectil rojo hacia abajo
             self.projectiles.append(projectile)
+            self.shoot_cooldown = 60  # Establecer un tiempo de espera (60 fotogramas)
 
     def update_projectiles(self, screen_height):
         """Actualizar los proyectiles del enemigo."""
+        if self.shoot_cooldown > 0:
+            self.shoot_cooldown -= 1  # Reducir el temporizador en cada fotograma
+
         for projectile in self.projectiles:
             projectile.move()
         # Eliminar proyectiles que salgan de la pantalla
