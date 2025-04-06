@@ -7,7 +7,7 @@ from projectile import Projectile
 class Game:
     def __init__(self):
         pygame.init()
-        self.screen = pygame.display.set_mode((800, 600))  # Tamaño de la ventana
+        self.screen = pygame.display.set_mode((1920, 1080))  # Resolución Full HD
         pygame.display.set_caption("Juego Arcade")
         self.clock = pygame.time.Clock()
         self.is_running = False
