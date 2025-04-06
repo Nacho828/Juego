@@ -50,10 +50,25 @@ class Game:
             opponent.move(self.screen.get_width())
             opponent.draw(self.screen)
 
+            # Verificar colisiones entre el jugador y los enemigos
+            if self.player.rect.colliderect(opponent.rect):
+                self.lives -= 1  # Reducir vidas si hay colisión
+                print(f"Colisión detectada! Vidas restantes: {self.lives}")
+                if self.lives <= 0:
+                    self.is_running = False  # Terminar el juego si no hay vidas
+
         # Dibujar y mover los proyectiles del jugador
         for projectile in self.projectiles:
             projectile.move()
             projectile.draw(self.screen)
+
+            # Verificar colisiones entre proyectiles y enemigos
+            for opponent in self.opponents:
+                if projectile.rect.colliderect(opponent.rect):
+                    self.opponents.remove(opponent)  # Eliminar enemigo si hay colisión
+                    self.projectiles.remove(projectile)  # Eliminar proyectil
+                    self.score += 10  # Incrementar puntuación
+                    print(f"Enemigo eliminado! Puntuación: {self.score}")
 
         pygame.display.flip()
 
@@ -71,11 +86,14 @@ class Game:
 
     def shoot(self):
         """Crear un nuevo proyectil desde la posición del jugador."""
-        try:
-            projectile = PlayerProjectile(self.player.rect.centerx, self.player.rect.top)  # Proyectil hacia arriba
-            self.projectiles.append(projectile)
-        except AttributeError as e:
-            print(f"Error al disparar: {e}")
+        projectile = PlayerProjectile(self.player.rect.centerx, self.player.rect.top)  # Proyectil hacia arriba
+        self.projectiles.append(projectile)
+
+        # Hacer que los enemigos disparen aleatoriamente
+        for opponent in self.opponents:
+            if random.randint(0, 100) < 5:  # Probabilidad del 5% de disparar
+                enemy_projectile = PlayerProjectile(opponent.rect.centerx, opponent.rect.bottom)
+                self.projectiles.append(enemy_projectile)
 
     def run(self):
         """Bucle principal del juego."""
