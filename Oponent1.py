@@ -2,7 +2,7 @@ import pygame
 
 class Opponent:
     def __init__(self, x, y):
-        self.image = pygame.Surface((50, 50))  # Crear un rectángulo temporal
+        self.image = pygame.Surface((100, 100))  # Crear un rectángulo temporal
         self.image.fill((255, 0, 0))  # Color rojo para el enemigo
         self.rect = self.image.get_rect()
         self.rect.topleft = (x, y)
