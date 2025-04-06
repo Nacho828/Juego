@@ -3,7 +3,7 @@ import pygame
 class Player:
     def __init__(self, x, y):
         self.image = pygame.image.load("assets/player.png")  # Cargar imagen del jugador
-        self.image = pygame.transform.scale(self.image, (150, 150))  # Escalar la imagen
+        self.image = pygame.transform.scale(self.image, (200, 200))  # Escalar la imagen
         self.rect = self.image.get_rect()
         self.rect.topleft = (x, y)
         self.speed = 5
