@@ -1,19 +1,19 @@
 import pygame
 from Character1 import Character  # Importa la clase Character desde Character.py
 
-class Opponent(Character):
+class Opponent:
     def __init__(self, x, y):
-        super().__init__(x, y)  # Pasa los argumentos x e y a Character
-
-    def move(self):
-        """Mueve al oponente automáticamente."""
-        self.rect.y += 2  # Baja 2 píxeles por frame
-        if self.rect.top > 600:  # Si sale de la pantalla, reinicia su posición
-            self.rect.y = -50
+        self.image = pygame.Surface((50, 50))  # Representación del enemigo
+        self.image.fill((255, 0, 0))  # Color rojo
+        self.rect = self.image.get_rect()
+        self.rect.topleft = (x, y)
+        self.speed = 2
 
     def draw(self, screen):
-        """Dibuja al oponente en la pantalla."""
         screen.blit(self.image, self.rect)
+
+    def move(self):
+        self.rect.y += self.speed  
 
 
 
