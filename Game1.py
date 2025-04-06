@@ -25,9 +25,9 @@ class Game:
         self.lives = 3
         self.player = Player(375, 500)
         self.opponents = [
-            Opponent(100, 50, "assets/enemy1.png"),
-            Opponent(300, 100, "assets/enemy2.png"),
-            Opponent(500, 150, "assets/enemy3.png")
+            Opponent(700, 150, "assets/enemy1.png"),
+            Opponent(1200, 200, "assets/enemy2.png"),
+            Opponent(200, 400, "assets/enemy3.png")
         ]
         self.projectiles = []  # Lista para almacenar los proyectiles del jugador
 
