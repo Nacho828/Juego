@@ -27,9 +27,9 @@ class Game:
 
         # Crear enemigos con tamaños personalizados
         self.opponents = [
-            Opponent(100, 100, "assets/enemy1.png", size=(60, 60)),  # Enemigo 1 más grande
-            Opponent(300, 200, "assets/enemy2.png", size=(40, 40)),  # Enemigo 2 más pequeño
-            Opponent(500, 150, "assets/enemy3.png", size=(80, 80))   # Enemigo 3 aún más grande
+            Opponent(100, 150, "assets/enemy1.png", size=(150, 150)),  # Enemigo 1 más grande
+            Opponent(300, 250, "assets/enemy2.png", size=(150, 150)),  # Enemigo 2 más pequeño
+            Opponent(500, 200, "assets/enemy3.png", size=(150, 150))   # Enemigo 3 aún más grande
         ]
         self.projectiles = []  # Lista para almacenar los proyectiles
 
