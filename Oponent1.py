@@ -28,7 +28,7 @@ class Opponent:
 
     def shoot(self):
         """Disparar un proyectil hacia abajo."""
-        if random.randint(1, 100) <= 0.5:  # Probabilidad de disparar (2%)
+        if random.randint(1, 100) <= 1:  # Probabilidad de disparar (2%)
             projectile = EnemyProjectile(self.rect.centerx, self.rect.bottom)  # Proyectil rojo hacia abajo
             self.projectiles.append(projectile)
 
