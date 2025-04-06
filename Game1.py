@@ -30,7 +30,6 @@ class Game:
             Opponent(200, 350, "assets/enemy3.png")
         ]
         self.projectiles = []  # Lista para almacenar los proyectiles del jugador
-        self.boss = None  # Inicializar el jefe final como None
 
     def start(self):
         """Inicia el juego."""
@@ -47,15 +46,9 @@ class Game:
         self.player.draw(self.screen)
 
         # Dibujar y mover a los enemigos
-        if self.opponents:
-            for opponent in self.opponents:
-                opponent.move(self.screen.get_width())
-                opponent.draw(self.screen)
-        else:
-            # Si no hay enemigos, crear el jefe final si aún no existe
-            if self.boss is None:
-                self.boss = Opponent(800, 100, "assets/boss.png", size=(300, 200))  # Crear el jefe final
-            self.boss.draw(self.screen)  # Dibujar el jefe final
+        for opponent in self.opponents:
+            opponent.move(self.screen.get_width())
+            opponent.draw(self.screen)
 
         # Dibujar y mover los proyectiles del jugador
         for projectile in self.projectiles:
