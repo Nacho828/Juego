@@ -3,7 +3,7 @@ import random
 from projectile import EnemyProjectile
 
 class Opponent:
-    def __init__(self, x, y, sprite_path, size=(50, 50)):
+    def __init__(self, x, y, sprite_path, size=(100, 100)):
         self.image = pygame.image.load(sprite_path)
         self.image = pygame.transform.scale(self.image, size)
         self.rect = self.image.get_rect()
