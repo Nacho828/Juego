@@ -2,8 +2,8 @@ import pygame
 
 class Player:
     def __init__(self, x, y):
-        self.image = pygame.Surface((50, 50))  # Representación del jugador
-        self.image.fill((0, 255, 0))  # Color verde
+        self.image = pygame.image.load("assets/player.png")  # Cargar imagen del jugador
+        self.image = pygame.transform.scale(self.image, (50, 50))  # Escalar la imagen
         self.rect = self.image.get_rect()
         self.rect.topleft = (x, y)
         self.speed = 5

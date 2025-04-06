@@ -1,6 +1,6 @@
 import pygame
 from Player1 import Player
-from Boss1 import Boss
+from codigo.Boss1 import Boss
 from Oponent1 import Opponent
 from projectile import Projectile
 
