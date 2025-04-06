@@ -17,21 +17,19 @@ def draw_gradient(surface, color1, color2):
 class Game:
     def __init__(self):
         pygame.init()
-        self.screen = pygame.display.set_mode((1920,1080))  # Tamaño de la ventana
+        self.screen = pygame.display.set_mode((800, 600))
         pygame.display.set_caption("Juego Arcade")
         self.clock = pygame.time.Clock()
         self.is_running = False
         self.score = 0
-        self.lives = 3  # Vida inicial del jugador
-        self.player = Player(375, 500)  # Posición inicial del jugador
-
-        # Crear enemigos con posiciones iniciales personalizadas
+        self.lives = 3
+        self.player = Player(375, 500)
         self.opponents = [
-            Opponent(100, 50, "assets/enemy1.png"),  # Enemigo 1
-            Opponent(300, 100, "assets/enemy2.png"),  # Enemigo 2
-            Opponent(500, 150, "assets/enemy3.png")   # Enemigo 3
+            Opponent(100, 50, "assets/enemy1.png"),
+            Opponent(300, 100, "assets/enemy2.png"),
+            Opponent(500, 150, "assets/enemy3.png")
         ]
-        self.projectiles = []  # Lista para almacenar los proyectiles
+        self.projectiles = []  # Lista para almacenar los proyectiles del jugador
 
     def start(self):
         """Inicia el juego."""
@@ -85,18 +83,18 @@ class Game:
     def handle_events(self):
         """Manejar eventos del teclado y otros eventos."""
         keys = pygame.key.get_pressed()
-        self.player.move(keys)
+        self.player.move(keys)  # Mover al jugador con las teclas de dirección
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                self.is_running = False
+                self.is_running = False  # Salir del juego
             elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_e:  # Disparar con la tecla 'E'
-                    self.shoot()
+                if event.key == pygame.K_e:  # Si se presiona la tecla 'E'
+                    self.shoot()  # Llamar al método para disparar
 
     def shoot(self):
         """Crear un nuevo proyectil desde la posición del jugador."""
-        projectile = Projectile(self.player.rect.centerx, self.player.rect.top)
+        projectile = Projectile(self.player.rect.centerx, self.player.rect.top, (255, 255, 0))  # Proyectil amarillo
         self.projectiles.append(projectile)
 
     def run(self):
