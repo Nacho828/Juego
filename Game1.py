@@ -17,7 +17,7 @@ def draw_gradient(surface, color1, color2):
 class Game:
     def __init__(self):
         pygame.init()
-        self.screen = pygame.display.set_mode((800, 600))
+        self.screen = pygame.display.set_mode((1920,1080))
         pygame.display.set_caption("Juego Arcade")
         self.clock = pygame.time.Clock()
         self.is_running = False
