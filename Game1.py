@@ -17,14 +17,15 @@ class Game:
         self.is_running = False
 
     def start(self):
+        """Inicia el bucle principal del juego."""
         self.is_running = True
         self.score = 0
         print("Game started!")
         while self.running:
-            self.handle_events()
-            self.update()
-            self.draw()
-            self.clock.tick(60)  # Limita a 60 FPS
+            self.handle_events()  # Maneja los eventos del jugador
+            self.update()         # Actualiza la lógica del juego
+            self.draw()           # Dibuja los elementos en la pantalla
+            self.clock.tick(60)   # Limita a 60 FPS
 
         pygame.quit()
 
@@ -35,18 +36,18 @@ class Game:
                 self.running = False
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT:
-                    self.player.move(-5, 0)
+                    self.player.move(-5, 0)  # Mueve al jugador a la izquierda
                 elif event.key == pygame.K_RIGHT:
-                    self.player.move(5, 0)
+                    self.player.move(5, 0)   # Mueve al jugador a la derecha
                 elif event.key == pygame.K_SPACE:
-                    self.convert_enemy_to_star()
+                    self.convert_enemy_to_star()  # Convierte al enemigo en estrella
 
     def update(self):
         """Actualiza la lógica del juego."""
         if self.is_running:
             self.opponent.move()  # Mueve al oponente
             if self.check_collision(self.player, self.opponent):
-                self.lose_life()
+                self.lose_life()  # Reduce las vidas si hay colisión
 
     def draw(self):
         """Dibuja los elementos del juego en la pantalla."""
@@ -93,5 +94,4 @@ class Game:
             else:
                 print("No lives left. Game is already over.")
         else:
-            print("Game is not running. Cannot lose a life.")         
             print("Game is not running. Cannot lose a life.")
