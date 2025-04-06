@@ -1,59 +1,88 @@
+import pygame
 from Player1 import Player
 from Boss1 import Boss
 from Oponent1 import Opponent
+
 class Game:
     def __init__(self):
+        pygame.init()
+        self.screen = pygame.display.set_mode((800, 600))  # Ventana de 800x600
+        pygame.display.set_caption("Mi Juego con Pygame")
+        self.clock = pygame.time.Clock()
+        self.running = True
         self.score = 0
-        self.player = None
-        self.opponent = None
+        self.lives = 3
+        self.player = Player(400, 500)  # Posición inicial del jugador
+        self.opponent = Opponent(400, 100)  # Posición inicial del oponente
         self.is_running = False
 
     def start(self):
         self.is_running = True
         self.score = 0
         print("Game started!")
+        while self.running:
+            self.handle_events()
+            self.update()
+            self.draw()
+            self.clock.tick(60)  # Limita a 60 FPS
+
+        pygame.quit()
+
+    def handle_events(self):
+        """Maneja los eventos del juego, como teclas presionadas o cerrar la ventana."""
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:  # Cerrar ventana
+                self.running = False
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_LEFT:
+                    self.player.move(-5, 0)
+                elif event.key == pygame.K_RIGHT:
+                    self.player.move(5, 0)
+                elif event.key == pygame.K_SPACE:
+                    self.convert_enemy_to_star()
 
     def update(self):
+        """Actualiza la lógica del juego."""
         if self.is_running:
-            print("Game is updating...")
-            # Add game logic here
-        else:
-            print("Game is not running.")
+            self.opponent.move()  # Mueve al oponente
+            if self.check_collision(self.player, self.opponent):
+                self.lose_life()
+
+    def draw(self):
+        """Dibuja los elementos del juego en la pantalla."""
+        self.screen.fill((0, 0, 0))  # Fondo negro
+        self.player.draw(self.screen)  # Dibuja al jugador
+        self.opponent.draw(self.screen)  # Dibuja al oponente
+
+        # Dibuja el puntaje y las vidas
+        font = pygame.font.Font(None, 36)
+        score_text = font.render(f"Score: {self.score}", True, (255, 255, 255))
+        lives_text = font.render(f"Lives: {self.lives}", True, (255, 255, 255))
+        self.screen.blit(score_text, (10, 10))
+        self.screen.blit(lives_text, (10, 50))
+
+        pygame.display.flip()  # Actualiza la pantalla
+
+    def check_collision(self, player, opponent):
+        """Verifica si el jugador colisiona con el oponente."""
+        return player.rect.colliderect(opponent.rect)
 
     def end_game(self):
+        """Termina el juego."""
         self.is_running = False
         print("Game ended!")
-        
-        print(f"Final score: {self.score}") 
-        
-    def get_score(self):    
-        """Return the current score."""
-        return self.score
+        print(f"Final score: {self.score}")
 
-    
-    def set_score(self, score):
-        """Set the current score."""
-        self.score = score
-    
-    def __str__(self):
-        """Return a string representation of the game state."""
-        return (f"Game(is_running={self.is_running}, score={self.score}, "
-                f"player={self.player}, opponent={self.opponent})")
-        
     def convert_enemy_to_star(self):
-        """Simulate converting an enemy to a star and increment the score."""
+        """Simula convertir un enemigo en una estrella y aumenta el puntaje."""
         if self.is_running:
             self.score += 1
             print("Enemy converted to star! Score increased.")
         else:
             print("Game is not running. Cannot convert enemy.")
-    
-    def initialize_lives(self):
-        """Initialize the player's lives."""
-        self.lives = 3
 
     def lose_life(self):
-        """Reduce the player's lives by one and check if the game should end."""
+        """Reduce las vidas del jugador y verifica si el juego debe terminar."""
         if self.is_running:
             if self.lives > 0:
                 self.lives -= 1
@@ -64,12 +93,6 @@ class Game:
             else:
                 print("No lives left. Game is already over.")
         else:
+
+            print("Game is not running. Cannot lose a life.")         
             print("Game is not running. Cannot lose a life.")
-            
-    def spawn_boss(self):
-        """Spawn the final boss when the player defeats an enemy."""
-        if self.is_running:
-            self.opponent = Boss(speed=2)  # Boss moves twice as fast
-            print("Final boss has appeared!")
-        else:
-            print("Game is not running. Cannot spawn boss.")

@@ -1,37 +1,24 @@
-from Character1 import Character
+import pygame
 
-class Player(Character):
-    def __init__(self, score=0, lives=3):
+class Character(pygame.sprite.Sprite):
+    def __init__(self, x, y, lives):
         super().__init__()
-        self.score = score
+        self.image = pygame.Surface((50, 50))  # Tamaño del personaje
+        self.image.fill((0, 255, 0))  # Color verde
+        self.rect = self.image.get_rect()
+        self.rect.topleft = (x, y)
         self.lives = lives
 
-    def move(self, direction):
-        # Implement movement logic here
-        print(f"Player moves {direction}")
+class Player(Character):
+    def __init__(self, x, y):
+        # Pasa el argumento 'lives' al constructor de la clase base
+        super().__init__(x, y, lives=3)
 
-    def shoot(self):
-        # Implement shooting logic here
-        print("Player shoots")
-        
-    def collide(self, damage):
-        # Implement collision logic here
-        self.lives -= damage
-        if self.lives <= 0:
-            self.is_alive = False
-        print(f"Player collided and has {self.lives} lives left")   
-        
-        
-    def respawn(self):
-        # Implement respawn logic here
-        if not self.is_alive:
-            self.lives = 3  # Reset lives to 3 or any other logic   
-            
-        self.is_alive = True
-        print("Player respawned")   
-        
-    def get_score(self):        
-        """Return the player's score."""
-        return self.score   
-    def __str__(self):
-        return f"Player(score={self.score}, lives={self.lives}, is_alive={self.is_alive})"
+    def move(self, dx, dy):
+        """Mueve al jugador en la dirección especificada."""
+        self.rect.x += dx
+        self.rect.y += dy
+
+    def draw(self, screen):
+        """Dibuja al jugador en la pantalla."""
+        screen.blit(self.image, self.rect)
