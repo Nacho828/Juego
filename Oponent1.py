@@ -8,10 +8,13 @@ class Character(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.topleft = (x, y)
 
-class Opponent(Character):
+class Opponent(pygame.sprite.Sprite):
     def __init__(self, x, y):
-        # Pasa los argumentos correctos al constructor de la clase base
-        super().__init__(x, y)
+        super().__init__()
+        self.image = pygame.Surface((50, 50))  # Tamaño del oponente
+        self.image.fill((255, 0, 0))  # Color rojo
+        self.rect = self.image.get_rect()
+        self.rect.topleft = (x, y)
 
     def move(self):
         """Mueve al oponente automáticamente."""
@@ -22,6 +25,21 @@ class Opponent(Character):
     def draw(self, screen):
         """Dibuja al oponente en la pantalla."""
         screen.blit(self.image, self.rect)
+
+pygame.init()
+screen = pygame.display.set_mode((800, 600))
+pygame.display.set_caption("Prueba de Pygame")
+
+running = True
+while running:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+    screen.fill((0, 0, 0))  # Fondo negro
+    pygame.display.flip()  # Actualiza la pantalla
+
+pygame.quit()
 
 
 

@@ -6,6 +6,7 @@ from Oponent1 import Opponent
 class Game:
     def __init__(self):
         pygame.init()
+        print("Pygame inicializado correctamente.")  # Mensaje de depuración
         self.screen = pygame.display.set_mode((800, 600))  # Ventana de 800x600
         pygame.display.set_caption("Mi Juego con Pygame")
         self.clock = pygame.time.Clock()
