@@ -1,10 +1,10 @@
 import pygame
 
 class PlayerProjectile:
-    def __init__(self, x, y, sprite_path="assets/player_projectile.png", speed=-10):
+    def __init__(self, x, y, sprite_path="assets/player_projectile.png", size=(40, 40), speed=-10):
         # Cargar la imagen del proyectil del jugador
         self.image = pygame.image.load(sprite_path)
-        self.image = pygame.transform.scale(self.image, (15, 30))  # Escalar la imagen si es necesario
+        self.image = pygame.transform.scale(self.image, size)  # Escalar la imagen al tamaño especificado
         self.rect = self.image.get_rect()
         self.rect.center = (x, y)
         self.speed = speed  # Velocidad del proyectil (hacia arriba)
@@ -19,10 +19,10 @@ class PlayerProjectile:
 
 
 class EnemyProjectile:
-    def __init__(self, x, y, sprite_path="assets/enemy_projectile.png", speed=5):
+    def __init__(self, x, y, sprite_path="assets/enemy_projectile.png", size=(40, 40), speed=4):
         # Cargar la imagen del proyectil del enemigo
         self.image = pygame.image.load(sprite_path)
-        self.image = pygame.transform.scale(self.image, (15, 30))  # Escalar la imagen si es necesario
+        self.image = pygame.transform.scale(self.image, size)  # Escalar la imagen al tamaño especificado
         self.rect = self.image.get_rect()
         self.rect.center = (x, y)
         self.speed = speed  # Velocidad del proyectil (hacia abajo)
