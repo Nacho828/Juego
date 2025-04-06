@@ -3,7 +3,7 @@ from Character1 import Character  # Importa la clase Character desde Character.p
 
 class Opponent(Character):
     def __init__(self, x, y):
-        super().__init__(x, y)
+        super().__init__(x, y)  # Pasa los argumentos x e y a Character
 
     def move(self):
         """Mueve al oponente automáticamente."""
