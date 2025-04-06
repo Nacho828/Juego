@@ -2,13 +2,14 @@ import pygame
 
 class Opponent:
     def __init__(self, x, y, sprite_path, size=(50, 50)):
-        # Cargar la imagen del enemigo desde el archivo proporcionado
+        # Cargar la imagen del enemigo
         self.image = pygame.image.load(sprite_path)
-        self.image = pygame.transform.scale(self.image, size)  # Escalar la imagen al tamaño especificado
+        self.image = pygame.transform.scale(self.image, size)  # Escalar la imagen
         self.rect = self.image.get_rect()
         self.rect.topleft = (x, y)
         self.speed = 3  # Velocidad de movimiento horizontal
         self.direction = 1  # 1 para derecha, -1 para izquierda
+        self.health = 10  # Vida inicial del enemigo
 
     def draw(self, screen):
         """Dibujar al enemigo en la pantalla."""
@@ -21,6 +22,12 @@ class Opponent:
         # Cambiar de dirección al alcanzar los bordes de la pantalla
         if self.rect.right >= screen_width or self.rect.left <= 0:
             self.direction *= -1  # Invertir la dirección
+
+    def take_damage(self, damage):
+        """Reducir la vida del enemigo."""
+        self.health -= damage
+        if self.health <= 0:
+            self.health = 0  # Asegurarse de que no sea negativa
 
 
 

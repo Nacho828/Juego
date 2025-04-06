@@ -58,6 +58,16 @@ class Game:
             projectile.move()
             projectile.draw(self.screen)
 
+            # Detectar colisiones entre proyectiles y enemigos
+            for opponent in self.opponents:
+                if projectile.rect.colliderect(opponent.rect):  # Si hay colisión
+                    opponent.take_damage(1)  # Reducir la vida del enemigo
+                    self.projectiles.remove(projectile)  # Eliminar el proyectil
+                    break
+
+        # Eliminar enemigos con vida <= 0
+        self.opponents = [opponent for opponent in self.opponents if opponent.health > 0]
+
         # Eliminar proyectiles que salgan de la pantalla
         self.projectiles = [p for p in self.projectiles if p.rect.bottom > 0]
 
