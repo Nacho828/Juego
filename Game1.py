@@ -1,8 +1,9 @@
 import pygame
-from .Boss1 import Boss
-from .Player1 import Player
-from .Oponent1 import Opponent
-from .projectile import Projectile
+from Boss1 import Boss
+from Player1 import Player
+from Oponent1 import Opponent
+from projectile import Projectile
+
 class Game:
     def __init__(self):
         pygame.init()
