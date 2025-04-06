@@ -1,19 +1,25 @@
 import pygame
-from Character1 import Character  # Importa la clase Character desde Character.py
 
 class Opponent:
     def __init__(self, x, y):
-        self.image = pygame.Surface((50, 50))  # Representación del enemigo
-        self.image.fill((255, 0, 0))  # Color rojo
+        self.image = pygame.image.load("assets/opponent.png")  # Cargar imagen del enemigo
+        self.image = pygame.transform.scale(self.image, (50, 50))  # Escalar la imagen
         self.rect = self.image.get_rect()
         self.rect.topleft = (x, y)
-        self.speed = 2
+        self.speed = 3  # Velocidad de movimiento horizontal
+        self.direction = 1  # 1 para derecha, -1 para izquierda
 
     def draw(self, screen):
+        """Dibujar al enemigo en la pantalla."""
         screen.blit(self.image, self.rect)
 
-    def move(self):
-        self.rect.y += self.speed  
+    def move(self, screen_width):
+        """Mover al enemigo horizontalmente de lado a lado."""
+        self.rect.x += self.speed * self.direction
+
+        # Cambiar de dirección al alcanzar los bordes de la pantalla
+        if self.rect.right >= screen_width or self.rect.left <= 0:
+            self.direction *= -1  # Invertir la dirección
 
 
 

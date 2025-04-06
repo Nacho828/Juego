@@ -4,6 +4,15 @@ from Player1 import Player
 from Oponent1 import Opponent
 from projectile import Projectile
 
+def draw_gradient(surface, color1, color2):
+    """Dibujar un degradado en el fondo."""
+    for y in range(surface.get_height()):
+        ratio = y / surface.get_height()
+        r = int(color1[0] * (1 - ratio) + color2[0] * ratio)
+        g = int(color1[1] * (1 - ratio) + color2[1] * ratio)
+        b = int(color1[2] * (1 - ratio) + color2[2] * ratio)
+        pygame.draw.line(surface, (r, g, b), (0, y), (surface.get_width(), y))
+
 class Game:
     def __init__(self):
         pygame.init()
@@ -26,15 +35,16 @@ class Game:
 
     def update(self):
         """Actualizar la lógica del juego."""
-        self.screen.fill((0, 0, 0))  # Fondo negro
+        # Dibujar un degradado en el fondo
+        draw_gradient(self.screen, (0, 0, 128), (0, 128, 255))  # De azul oscuro a azul claro
 
         # Dibujar al jugador
         self.player.draw(self.screen)
 
         # Dibujar y mover a los enemigos
         for opponent in self.opponents:
+            opponent.move(self.screen.get_width())  # Pasar el ancho de la pantalla
             opponent.draw(self.screen)
-            opponent.move()
 
         # Dibujar y mover los proyectiles
         for projectile in self.projectiles:
