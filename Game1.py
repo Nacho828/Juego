@@ -22,14 +22,14 @@ class Game:
         self.clock = pygame.time.Clock()
         self.is_running = False
         self.score = 0
-        self.lives = 3
+        self.lives = 3  # Vida inicial del jugador
         self.player = Player(375, 500)  # Posición inicial del jugador
 
-        # Crear enemigos con tamaños personalizados
+        # Crear enemigos con posiciones iniciales personalizadas
         self.opponents = [
-            Opponent(1200, 150, "assets/enemy1.png", size=(170, 150)),  # Enemigo 1 más grande
-            Opponent(300, 350, "assets/enemy2.png", size=(150, 150)),  # Enemigo 2 más pequeño
-            Opponent(750, 250, "assets/enemy3.png", size=(150, 150))   # Enemigo 3 aún más grande
+            Opponent(100, 50, "assets/enemy1.png"),  # Enemigo 1
+            Opponent(300, 100, "assets/enemy2.png"),  # Enemigo 2
+            Opponent(500, 150, "assets/enemy3.png")   # Enemigo 3
         ]
         self.projectiles = []  # Lista para almacenar los proyectiles
 
@@ -42,27 +42,36 @@ class Game:
 
     def update(self):
         """Actualizar la lógica del juego."""
-        # Rellenar el fondo con un color sólido (negro en este caso)
-        self.screen.fill((0, 0, 0))  # Color negro
+        self.screen.fill((0, 0, 0))  # Fondo negro
 
         # Dibujar al jugador
         self.player.draw(self.screen)
 
         # Dibujar y mover a los enemigos
         for opponent in self.opponents:
-            opponent.move(self.screen.get_width())  # Pasar el ancho de la pantalla
+            opponent.move(self.screen.get_width())
+            opponent.shoot()  # Hacer que los enemigos disparen
+            opponent.update_projectiles(self.screen.get_height())  # Actualizar proyectiles
             opponent.draw(self.screen)
 
-        # Dibujar y mover los proyectiles
+            # Detectar colisiones entre los proyectiles del enemigo y el jugador
+            for projectile in opponent.projectiles:
+                if projectile.rect.colliderect(self.player.rect):  # Si hay colisión
+                    self.lives -= 1  # Reducir la vida del jugador
+                    opponent.projectiles.remove(projectile)  # Eliminar el proyectil
+                    if self.lives <= 0:
+                        self.is_running = False  # Terminar el juego si el jugador muere
+
+        # Dibujar y mover los proyectiles del jugador
         for projectile in self.projectiles:
             projectile.move()
             projectile.draw(self.screen)
 
-            # Detectar colisiones entre proyectiles y enemigos
+            # Detectar colisiones entre proyectiles del jugador y enemigos
             for opponent in self.opponents:
-                if projectile.rect.colliderect(opponent.rect):  # Si hay colisión
-                    opponent.take_damage(1)  # Reducir la vida del enemigo
-                    self.projectiles.remove(projectile)  # Eliminar el proyectil
+                if projectile.rect.colliderect(opponent.rect):
+                    opponent.take_damage(1)
+                    self.projectiles.remove(projectile)
                     break
 
         # Eliminar enemigos con vida <= 0

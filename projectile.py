@@ -1,16 +1,15 @@
 import pygame
 
 class Projectile:
-    def __init__(self, x, y):
-        # Cargar la imagen del proyectil
-        self.image = pygame.image.load("assets/projectile.png")  # Ruta del sprite del disparo
-        self.image = pygame.transform.scale(self.image, (100, 100))  # Escalar la imagen si es necesario
+    def __init__(self, x, y, color, speed=5):
+        self.image = pygame.Surface((10, 20))  # Tamaño del proyectil
+        self.image.fill(color)  # Color del proyectil
         self.rect = self.image.get_rect()
         self.rect.center = (x, y)
-        self.speed = -10  # Velocidad hacia arriba
+        self.speed = speed  # Velocidad del proyectil
 
     def move(self):
-        """Mover el proyectil hacia arriba."""
+        """Mover el proyectil hacia abajo."""
         self.rect.y += self.speed
 
     def draw(self, screen):
