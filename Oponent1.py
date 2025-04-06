@@ -3,14 +3,14 @@ import random
 from projectile import EnemyProjectile
 
 class Opponent:
-    def __init__(self, x, y, sprite_path, size=(100, 100)):
+    def __init__(self, x, y, sprite_path, size=(50, 50)):
         self.image = pygame.image.load(sprite_path)
         self.image = pygame.transform.scale(self.image, size)
         self.rect = self.image.get_rect()
         self.rect.topleft = (x, y)
         self.speed = 3
         self.direction = 1
-        self.health = 10
+        self.health = 10  # Vida inicial del enemigo
         self.projectiles = []  # Lista para almacenar los proyectiles del enemigo
         self.shoot_cooldown = 0  # Temporizador para controlar el disparo
 
@@ -49,7 +49,7 @@ class Opponent:
         """Reducir la vida del enemigo."""
         self.health -= damage
         if self.health <= 0:
-            self.health = 0
+            self.health = 0  # Asegurarse de que no sea negativa
 
 
 
