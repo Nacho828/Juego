@@ -2,6 +2,7 @@ import pygame
 from Player1 import Player
 from Boss1 import Boss
 from Oponent1 import Opponent
+from Projectile import Projectile
 
 class Game:
     def __init__(self):
@@ -14,6 +15,7 @@ class Game:
         self.lives = 3
         self.player = Player(375, 500)  # Posición inicial del jugador
         self.opponents = [Opponent(100, 50), Opponent(300, 50), Opponent(500, 50)]  # Lista de enemigos
+        self.projectiles = []  # Lista para almacenar los proyectiles
 
     def start(self):
         """Inicia el juego."""
@@ -34,6 +36,14 @@ class Game:
             opponent.draw(self.screen)
             opponent.move()
 
+        # Dibujar y mover los proyectiles
+        for projectile in self.projectiles:
+            projectile.move()
+            projectile.draw(self.screen)
+
+        # Eliminar proyectiles que salgan de la pantalla
+        self.projectiles = [p for p in self.projectiles if p.rect.bottom > 0]
+
         pygame.display.flip()
 
     def handle_events(self):
@@ -44,6 +54,14 @@ class Game:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.is_running = False
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_e:  # Disparar con la tecla 'E'
+                    self.shoot()
+
+    def shoot(self):
+        """Crear un nuevo proyectil desde la posición del jugador."""
+        projectile = Projectile(self.player.rect.centerx, self.player.rect.top)
+        self.projectiles.append(projectile)
 
     def run(self):
         """Bucle principal del juego."""
