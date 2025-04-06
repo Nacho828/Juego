@@ -13,5 +13,6 @@ def main():
     # Aquí puedes agregar la lógica principal de tu juego
     game = Game()
     game.start()
+
 if __name__ == "__main__":
-    main
+    main()  # Llama correctamente a la función main
