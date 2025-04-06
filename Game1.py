@@ -26,8 +26,8 @@ class Game:
         self.player = Player(375, 500)  # Posición inicial del jugador
         self.opponents = [
             Opponent(50, 50),   # Enemigo 1 más cerca del borde izquierdo
-            Opponent(200, 200), # Enemigo 2 más abajo
-            Opponent(400, 20)  # Enemigo 3 en una posición intermedia
+            Opponent(50, 45), # Enemigo 2 más abajo
+            Opponent(60,50 )  # Enemigo 3 en una posición intermedia
         ]
         self.projectiles = []  # Lista para almacenar los proyectiles
 
