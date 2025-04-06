@@ -3,7 +3,7 @@ import random
 from Boss1 import Boss
 from Player1 import Player
 from Oponent1 import Opponent
-from projectile import Projectile
+from projectile import Projectiles
 
 def draw_gradient(surface, color1, color2):
     """Dibujar un degradado en el fondo."""
@@ -52,7 +52,7 @@ class Game:
             opponent.draw(self.screen)
 
         # Dibujar y mover los proyectiles
-        for projectile in self.projectile:
+        for projectile in self.projectiles:
             projectile.move()
             projectile.draw(self.screen)
 
