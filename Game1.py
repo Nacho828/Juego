@@ -40,7 +40,6 @@ class Game:
 
     def update(self):
         """Actualizar la lógica del juego."""
-        # Rellenar el fondo con un color sólido (negro en este caso)
         self.screen.fill((0, 0, 0))  # Fondo negro
 
         # Dibujar al jugador
@@ -48,16 +47,23 @@ class Game:
 
         # Dibujar y mover a los enemigos
         for opponent in self.opponents:
-            opponent.move(self.screen.get_width())  # Pasar el ancho de la pantalla
+            opponent.move(self.screen.get_width())
             opponent.draw(self.screen)
 
-        # Dibujar y mover los proyectiles
+        # Dibujar y mover los proyectiles del jugador
         for projectile in self.projectiles:
             projectile.move()
             projectile.draw(self.screen)
 
-        # Eliminar proyectiles que salgan de la pantalla
-        self.projectiles = [p for p in self.projectiles if p.rect.bottom > 0]
+            # Detectar colisiones entre proyectiles del jugador y enemigos
+            for opponent in self.opponents:
+                if projectile.rect.colliderect(opponent.rect):  # Si hay colisión
+                    opponent.take_damage(1)  # Reducir la vida del enemigo
+                    self.projectiles.remove(projectile)  # Eliminar el proyectil
+                    break
+
+        # Eliminar enemigos con vida <= 0
+        self.opponents = [opponent for opponent in self.opponents if opponent.health > 0]
 
         pygame.display.flip()
 
