@@ -1,7 +1,7 @@
 import pygame
 
 class PlayerProjectile:
-    def __init__(self, x, y, sprite_path="assets/player_projectile.png", size=(60, 50), speed=-10):
+    def __init__(self, x, y, sprite_path="assets/player_projectile.png", size=(80, 80), speed=-7):
         # Cargar la imagen del proyectil del jugador
         self.image = pygame.image.load(sprite_path)
         self.image = pygame.transform.scale(self.image, size)  # Escalar la imagen al tamaño especificado
