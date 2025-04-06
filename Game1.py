@@ -48,6 +48,8 @@ class Game:
         # Dibujar y mover a los enemigos
         for opponent in self.opponents:
             opponent.move(self.screen.get_width())
+            opponent.shoot()  # Hacer que los enemigos disparen
+            opponent.update_projectiles(self.screen.get_height())  # Actualizar proyectiles
             opponent.draw(self.screen)
 
         # Dibujar y mover los proyectiles del jugador
@@ -55,7 +57,8 @@ class Game:
             projectile.move()
             projectile.draw(self.screen)
 
-            # Detectar colisiones entre proyectiles del jugador y enemigos
+        # Detectar colisiones entre proyectiles del jugador y enemigos
+        for projectile in self.projectiles:
             for opponent in self.opponents:
                 if projectile.rect.colliderect(opponent.rect):  # Si hay colisión
                     opponent.take_damage(1)  # Reducir la vida del enemigo
