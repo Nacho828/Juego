@@ -17,17 +17,19 @@ def draw_gradient(surface, color1, color2):
 class Game:
     def __init__(self):
         pygame.init()
-        self.screen = pygame.display.set_mode((1920, 1080))  # Resolución Full HD
+        self.screen = pygame.display.set_mode((800, 600))  # Tamaño de la ventana
         pygame.display.set_caption("Juego Arcade")
         self.clock = pygame.time.Clock()
         self.is_running = False
         self.score = 0
         self.lives = 3
         self.player = Player(375, 500)  # Posición inicial del jugador
+
+        # Crear enemigos con sprites diferentes
         self.opponents = [
-            Opponent(600,250),   # Enemigo 1 más cerca del borde izquierdo
-            Opponent(300,150), # Enemigo 2 más abajo
-            Opponent(0,350)  # Enemigo 3 en una posición intermedia
+            Opponent(100, 50, "assets/enemy1.png"),  # Enemigo 1 con sprite enemy1.png
+            Opponent(300, 100, "assets/enemy2.png"),  # Enemigo 2 con sprite enemy2.png
+            Opponent(500, 150, "assets/enemy3.png")   # Enemigo 3 con sprite enemy3.png
         ]
         self.projectiles = []  # Lista para almacenar los proyectiles
 
