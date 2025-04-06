@@ -15,10 +15,8 @@ class Opponent:
         self.shoot_cooldown = 0  # Temporizador para controlar el disparo
 
     def draw(self, screen):
-        """Dibujar al enemigo en la pantalla."""
+        """Dibujar al enemigo y sus proyectiles."""
         screen.blit(self.image, self.rect)
-
-        # Dibujar los proyectiles del enemigo
         for projectile in self.projectiles:
             projectile.draw(screen)
 
@@ -32,7 +30,7 @@ class Opponent:
 
     def shoot(self):
         """Disparar un proyectil hacia abajo."""
-        if self.shoot_cooldown == 0 and random.randint(1, 100) <= 1:  # Probabilidad de disparar (5%)
+        if self.shoot_cooldown == 0 and random.randint(1, 100) <= 5:  # Probabilidad de disparar (5%)
             projectile = EnemyProjectile(self.rect.centerx, self.rect.bottom)  # Proyectil rojo hacia abajo
             self.projectiles.append(projectile)
             self.shoot_cooldown = 60  # Establecer un tiempo de espera (60 fotogramas)
