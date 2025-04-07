@@ -22,7 +22,7 @@ class Boss:
         self.direction_y = 1  # Dirección inicial vertical (1 = abajo, -1 = arriba)
         try:
             self.projectile_image = pygame.image.load("assets/enemy_projectile.png")  # Carga la imagen de las balas
-            self.projectile_image = pygame.transform.scale(self.projectile_image, (30, 30))  # Cambia el tamaño de la imagen
+            self.projectile_image = pygame.transform.scale(self.projectile_image, (45, 45))  # Cambia el tamaño de la imagen
         except pygame.error as e:
             print(f"Error al cargar la imagen de las balas: {e}")
             self.projectile_image = None
