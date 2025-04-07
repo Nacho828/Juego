@@ -14,7 +14,7 @@ class Boss:
         self.rect = self.image.get_rect(topleft=(self.x, self.y)) if self.image else pygame.Rect(x, y, *size)
         self.health = 10  # Salud inicial del jefe
         self.projectiles = []  # Lista para almacenar los proyectiles disparados
-        self.shoot_cooldown = 30  # Tiempo entre disparos (en frames, reducido para mayor frecuencia)
+        self.shoot_cooldown = 30  # Tiempo entre disparos (en frames)
         self.shoot_timer = 0  # Temporizador para controlar los disparos
         self.speed_x = 5  # Velocidad de movimiento horizontal
         self.speed_y = 4  # Velocidad de movimiento vertical (aumentada)
@@ -44,38 +44,57 @@ class Boss:
     def update_projectiles(self, screen_width, screen_height):
         """Actualiza la posición de los proyectiles y elimina los que salen de la pantalla."""
         for projectile in self.projectiles[:]:
-            projectile["y"] += projectile["dy"]  # Movimiento hacia abajo
+            projectile["x"] += projectile["dx"]
+            projectile["y"] += projectile["dy"]
             projectile["rect"].topleft = (projectile["x"], projectile["y"])
-            if projectile["y"] > screen_height:  # Elimina proyectiles que salen de la pantalla
+            if projectile["y"] > screen_height or projectile["x"] < 0 or projectile["x"] > screen_width:
                 self.projectiles.remove(projectile)
 
     def shoot(self):
-        """Dispara dos balas hacia abajo desde el centro del jefe."""
+        """Dispara cuatro balas: dos hacia abajo y dos a ángulos más inclinados hacia abajo."""
         if self.shoot_timer == 0:
             center_x = self.rect.centerx
             bottom_y = self.rect.bottom
 
             speed = 10  # Velocidad de las balas
 
-            # Crea las balas
+            # Balas hacia abajo
             projectile1 = {
-                "x": center_x - 40,  # Bala ligeramente a la izquierda del centro
+                "x": center_x - 20,  # Bala ligeramente a la izquierda del centro
                 "y": bottom_y,
                 "dx": 0,
                 "dy": speed,
-                "rect": pygame.Rect(center_x - 40, bottom_y, 20, 20)  # Tamaño de la bala
+                "rect": pygame.Rect(center_x - 20, bottom_y, 10, 10)  # Tamaño de la bala
             }
             projectile2 = {
-                "x": center_x + 40,  # Bala ligeramente a la derecha del centro
+                "x": center_x + 20,  # Bala ligeramente a la derecha del centro
                 "y": bottom_y,
                 "dx": 0,
                 "dy": speed,
-                "rect": pygame.Rect(center_x + 40, bottom_y, 20, 20)  # Tamaño de la bala
+                "rect": pygame.Rect(center_x + 20, bottom_y, 10, 10)  # Tamaño de la bala
+            }
+
+            # Balas a ángulos más inclinados hacia abajo
+            angle1 = math.radians(70)  # 70 grados hacia la izquierda
+            angle2 = math.radians(-225)  # 70 grados hacia la derecha
+
+            projectile3 = {
+                "x": center_x,
+                "y": bottom_y,
+                "dx": speed * math.cos(angle1),
+                "dy": speed * math.sin(angle1),
+                "rect": pygame.Rect(center_x, bottom_y, 10, 10)  # Tamaño de la bala
+            }
+            projectile4 = {
+                "x": center_x,
+                "y": bottom_y,
+                "dx": speed * math.cos(angle2),
+                "dy": speed * math.sin(angle2),
+                "rect": pygame.Rect(center_x, bottom_y, 10, 10)  # Tamaño de la bala
             }
 
             # Agrega las balas a la lista de proyectiles
-            self.projectiles.append(projectile1)
-            self.projectiles.append(projectile2)
+            self.projectiles.extend([projectile1, projectile2, projectile3, projectile4])
 
             # Reinicia el temporizador de disparo
             self.shoot_timer = self.shoot_cooldown
