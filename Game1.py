@@ -77,7 +77,7 @@ class Game:
         # Eliminar enemigos con vida <= 0
         self.opponents = [opponent for opponent in self.opponents if opponent.health > 0]
 
-        pygame.display.flip()
+    
         # Verificar si todos los enemigos han sido eliminados
         if len(self.opponents) == 0:
             # Agregar al jefe final si no está ya en pantalla
@@ -114,7 +114,7 @@ class Game:
             if self.boss.health <= 0:
                 print("¡Has derrotado al jefe final!")
                 self.is_running = False
-
+        pygame.display.flip()
     def handle_events(self):
         """Manejar eventos del teclado y otros eventos."""
         keys = pygame.key.get_pressed()
