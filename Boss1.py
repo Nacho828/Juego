@@ -32,7 +32,7 @@ class Boss:
 
         # Movimiento vertical
         self.y += self.speed_y * self.direction_y
-        if self.y <= 50 or self.y + self.rect.height >= screen_height // 3:  # Limita el movimiento vertical
+        if self.y <= 50 or self.y + self.rect.height >= screen_height // 30:  # Limita el movimiento vertical
             self.direction_y *= -1  # Cambia de dirección al llegar a los bordes verticales
 
         # Actualiza la posición del rectángulo
