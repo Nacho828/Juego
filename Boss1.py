@@ -12,9 +12,9 @@ class Boss:
             print(f"Error al cargar la imagen del jefe: {e}")
             self.image = None
         self.rect = self.image.get_rect(topleft=(self.x, self.y)) if self.image else pygame.Rect(x, y, *size)
-        self.health = 10  # Salud inicial del jefe
+        self.health = 20  # Salud inicial del jefe
         self.projectiles = []  # Lista para almacenar los proyectiles disparados
-        self.shoot_cooldown = 30  # Tiempo entre disparos (en frames)
+        self.shoot_cooldown = 60  # Tiempo entre disparos (en frames)
         self.shoot_timer = 0  # Temporizador para controlar los disparos
         self.speed_x = 4  # Velocidad de movimiento horizontal
         self.speed_y = 2  # Velocidad de movimiento vertical (aumentada)
@@ -22,7 +22,7 @@ class Boss:
         self.direction_y = 1  # Dirección inicial vertical (1 = abajo, -1 = arriba)
         try:
             self.projectile_image = pygame.image.load("assets/enemy_projectile.png")  # Carga la imagen de las balas
-            self.projectile_image = pygame.transform.scale(self.projectile_image, (20, 20))  # Cambia el tamaño de la imagen
+            self.projectile_image = pygame.transform.scale(self.projectile_image, (30, 30))  # Cambia el tamaño de la imagen
         except pygame.error as e:
             print(f"Error al cargar la imagen de las balas: {e}")
             self.projectile_image = None
@@ -62,7 +62,7 @@ class Boss:
             center_x = self.rect.centerx
             bottom_y = self.rect.bottom
 
-            speed = 5  # Velocidad de las balas
+            speed = 3  # Velocidad de las balas
             projectile_size = (30, 30)  # Nuevo tamaño de las balas
 
             # Balas hacia abajo
