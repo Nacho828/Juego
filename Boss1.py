@@ -2,14 +2,14 @@ from Oponent1 import Opponent
 import pygame
 
 class Boss(Opponent):
-    def __init__(self, x, y,assets, size=(100, 100)):
-        # Llama al constructor de la clase base Opponent
-        super().__init__(x, y, assets, size)  # Inicializa la posición y la imagen del jefe
-        """ self.image = pygame.image.load(assets).convert_alpha()  # Carga la imagen del jefe
-        self.image = pygame.transform.scale(self.image, size)  # Ajusta el tamaño de la imagen del jefe
-        self.rect = self.image.get_rect(topleft=(x, y)) """  # Define el rectángulo del jefe
-        self.health = 100  # Salud inicial del jefe final
-        print(assets)
+    def __init__(self, x, y, image_path, size=(300, 200)):
+        self.x = x
+        self.y = y
+        self.image = pygame.image.load(image_path)  # Carga la imagen del jefe
+        self.image = pygame.transform.scale(self.image, size)  # Escala la imagen al tamaño deseado
+        self.rect = self.image.get_rect(topleft=(self.x, self.y))
+        self.health = 10
+        self.projectiles = []
 
     def special_attack(self):
         """Implementa un ataque especial del jefe final."""
@@ -37,4 +37,4 @@ class Boss(Opponent):
 
     def draw(self, screen):
         """Dibuja al jefe final en la pantalla."""
-        screen.blit(self.image, self.rect)
+        screen.blit(self.image, (self.x, self.y))  # Dibuja la imagen en la pantalla

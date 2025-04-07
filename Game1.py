@@ -86,9 +86,12 @@ class Game:
                 print("¡El jefe final ha aparecido!")
 
             # Dibujar y mover al jefe
-            self.boss.move(self.screen.get_width())
-            self.boss.update_projectiles(self.screen.get_height())
-            self.boss.draw(self.screen)
+            if self.boss.image is None:
+                print("Error: La imagen del jefe no se cargó correctamente.")
+            else:
+                self.boss.move(self.screen.get_width())
+                self.boss.update_projectiles(self.screen.get_height())
+                self.boss.draw(self.screen)  # Asegúrate de que el método draw funcione correctamente
 
             # Detectar colisiones entre los proyectiles del jefe y el jugador
             for projectile in self.boss.projectiles:
