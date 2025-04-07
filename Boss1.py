@@ -62,7 +62,7 @@ class Boss:
             center_x = self.rect.centerx
             bottom_y = self.rect.bottom
 
-            speed = 3  # Velocidad de las balas
+            speed = 4.2  # Velocidad de las balas
             projectile_size = (30, 30)  # Nuevo tamaño de las balas
 
             # Balas hacia abajo
