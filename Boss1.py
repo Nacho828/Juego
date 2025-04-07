@@ -14,6 +14,11 @@ class Boss:
         self.health = 10
         self.projectiles = []
 
+    def take_damage(self, amount):
+        """Reduce la salud del jefe."""
+        self.health -= amount
+        print(f"El jefe ha recibido {amount} de daño. Salud restante: {self.health}")
+
     def move(self, screen_width):
         # Lógica para mover al jefe (puedes personalizar esto)
         pass
