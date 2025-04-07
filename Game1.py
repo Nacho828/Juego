@@ -77,7 +77,7 @@ class Game:
 
         pygame.display.flip()
         # Verificar si todos los enemigos han sido eliminados
-        if not self.opponents:
+        if len (self.opponents) == 0:
             # Agregar al jefe final si no está ya en pantalla
             if not hasattr(self, 'boss'):
                 self.boss = Boss(960, 100, "assets/boss.png", size=(300, 200))
