@@ -29,7 +29,8 @@ class Game:
             Opponent(1200, 250, "assets/enemy2.png"),
             Opponent(200, 350, "assets/enemy3.png")
         ]
-        self.projectiles = []  # Lista para almacenar los proyectiles del jugador
+        self.projectiles = []
+        # Lista para almacenar los proyectiles del jugador
 
     def start(self):
         """Inicia el juego."""
@@ -77,10 +78,14 @@ class Game:
 
         pygame.display.flip()
         # Verificar si todos los enemigos han sido eliminados
-        if len (self.opponents) == 0:
+        if len(self.opponents) == 0:
             # Agregar al jefe final si no está ya en pantalla
             if not hasattr(self, 'boss'):
-                self.boss = Boss(960, 100, "assets/boss.png", size=(300, 200))
+                self.boss = Boss(960, 100, "assets/boss.png", size=(300, 200))  # Ruta relativa
+                self.boss.health = 10  # Asegúrate de inicializar la salud del jefe
+                print("¡El jefe final ha aparecido!")
+
+            # Dibujar y mover al jefe
             self.boss.move(self.screen.get_width())
             self.boss.update_projectiles(self.screen.get_height())
             self.boss.draw(self.screen)

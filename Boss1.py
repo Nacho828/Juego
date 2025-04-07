@@ -9,15 +9,16 @@ class Boss(Opponent):
         self.image = pygame.transform.scale(self.image, size)  # Ajusta el tamaño de la imagen del jefe
         self.rect = self.image.get_rect(topleft=(x, y)) """  # Define el rectángulo del jefe
         self.health = 100  # Salud inicial del jefe final
+        print(assets)
 
     def special_attack(self):
         """Implementa un ataque especial del jefe final."""
         print("El jefe final realiza un ataque especial devastador.")
 
-    def move(self):
+    def move(self, max_width):
         """Implementa la lógica de movimiento del jefe final."""
         self.rect.y += 1  # El jefe final se mueve más lento que los oponentes normales
-        if self.rect.top > 600:  # Si sale de la pantalla, reinicia su posición
+        if self.rect.top > max_width:  # Si sale de la pantalla, reinicia su posición
             self.rect.y = -50
 
     def take_damage(self, damage):
