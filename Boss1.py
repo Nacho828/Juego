@@ -2,10 +2,10 @@ from Oponent1 import Opponent
 import pygame
 
 class Boss(Opponent):
-    def __init__(self, x, y, size=(100, 100)):
+    def __init__(self, x, y,assets, size=(100, 100)):
         # Llama al constructor de la clase base Opponent
         super().__init__(x, y)
-        self.image = pygame.image.load("boss_image.png").convert_alpha()  # Carga la imagen del jefe
+        self.image = pygame.image.load(assets).convert_alpha()  # Carga la imagen del jefe
         self.image = pygame.transform.scale(self.image, size)  # Ajusta el tamaño de la imagen del jefe
         self.rect = self.image.get_rect(topleft=(x, y))  # Define el rectángulo del jefe
         self.health = 100  # Salud inicial del jefe final
