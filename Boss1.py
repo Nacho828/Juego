@@ -1,7 +1,7 @@
 import pygame
 
 class Boss:
-    def __init__(self, x, y, image_path=None, size=(300, 200)):
+    def __init__(self, x, y, size=(300, 200)):
         self.x = x
         self.y = y
         self.width, self.height = size
@@ -25,4 +25,4 @@ class Boss:
     def draw(self, screen):
         # Dibuja el rectángulo que representa al jefe
         pygame.draw.rect(screen, (255, 0, 0), self.rect)  # Rojo para el jefe
-        print(f"Dibujando rectángulo del jefe en posición ({self.rect.x}, {self.rect.y})")
+        print(f"Dibujando rectángulo del jefe en posición ({self.rect.left}, {self.rect.top})")

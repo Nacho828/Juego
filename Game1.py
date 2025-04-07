@@ -81,16 +81,19 @@ class Game:
         # Verificar si todos los enemigos han sido eliminados
         if len(self.opponents) == 0:
             # Agregar al jefe final si no está ya en pantalla
-            if not hasattr(self, 'boss'):
-                self.boss = Boss(900, 300, size=(300, 200))  # Elimina la referencia a la imagen
+            if not hasattr(self, 'boss') or self.boss is None:
+                self.boss = Boss(900, 300, size=(300, 200))  # Crea el jefe si no existe
                 self.boss.health = 10
                 print("¡El jefe final ha aparecido!")
 
-            # Dibujar y mover al jefe
-            print(f"Dibujando al jefe en posición ({self.boss.rect.left}, {self.boss.rect.top})")
-            self.boss.move(self.screen.get_width())
-            self.boss.update_projectiles(self.screen.get_height())
-            self.boss.draw(self.screen)
+            # Verifica que el jefe se haya creado correctamente
+            if self.boss is not None:
+                print(f"Dibujando al jefe en posición ({self.boss.rect.left}, {self.boss.rect.top})")
+                self.boss.move(self.screen.get_width())
+                self.boss.update_projectiles(self.screen.get_height())
+                self.boss.draw(self.screen)
+            else:
+                print("Error: El jefe no se ha inicializado correctamente.")
 
             # Detectar colisiones entre los proyectiles del jefe y el jugador
             for projectile in self.boss.projectiles:
