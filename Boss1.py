@@ -13,8 +13,8 @@ class Boss:
         self.rect = self.image.get_rect(topleft=(self.x, self.y)) if self.image else pygame.Rect(x, y, *size)
         self.health = 10  # Salud inicial del jefe
         self.projectiles = []
-        self.speed_x = 7  # Velocidad de movimiento horizontal
-        self.speed_y = 2  # Velocidad de movimiento vertical
+        self.speed_x = 5  # Velocidad de movimiento horizontal
+        self.speed_y = 4  # Velocidad de movimiento vertical (aumentada)
         self.direction_x = 1  # Dirección inicial horizontal (1 = derecha, -1 = izquierda)
         self.direction_y = 1  # Dirección inicial vertical (1 = abajo, -1 = arriba)
 
@@ -24,7 +24,7 @@ class Boss:
         print(f"El jefe ha recibido {amount} de daño. Salud restante: {self.health}")
 
     def move(self, screen_width, screen_height):
-        """Mueve al jefe de lado a lado y un poco hacia arriba y abajo."""
+        """Mueve al jefe de lado a lado y más hacia arriba y abajo."""
         # Movimiento horizontal
         self.x += self.speed_x * self.direction_x
         if self.x <= 0 or self.x + self.rect.width >= screen_width:
@@ -32,7 +32,7 @@ class Boss:
 
         # Movimiento vertical
         self.y += self.speed_y * self.direction_y
-        if self.y <= 50 or self.y + self.rect.height >= screen_height // 30:  # Limita el movimiento vertical
+        if self.y <= 50 or self.y + self.rect.height >= screen_height // 2:  # Aumenta el rango vertical
             self.direction_y *= -1  # Cambia de dirección al llegar a los bordes verticales
 
         # Actualiza la posición del rectángulo
