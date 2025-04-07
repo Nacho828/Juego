@@ -96,7 +96,7 @@ class Game:
 
             # Detectar colisiones entre los proyectiles del jefe y el jugador
             for projectile in self.boss.projectiles:
-                if projectile.rect.colliderect(self.player.rect):
+                if projectile["rect"].colliderect(self.player.rect):  # Accede al rectángulo dentro del diccionario
                     self.lives -= 1
                     self.boss.projectiles.remove(projectile)
                     if self.lives <= 0:
