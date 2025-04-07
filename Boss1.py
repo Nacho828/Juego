@@ -20,6 +20,12 @@ class Boss:
         self.speed_y = 4  # Velocidad de movimiento vertical (aumentada)
         self.direction_x = 1  # Dirección inicial horizontal (1 = derecha, -1 = izquierda)
         self.direction_y = 1  # Dirección inicial vertical (1 = abajo, -1 = arriba)
+        try:
+            self.projectile_image = pygame.image.load("assets/enemy_projectile.png")  # Carga la imagen de las balas
+            self.projectile_image = pygame.transform.scale(self.projectile_image, (10, 10))  # Escala la imagen
+        except pygame.error as e:
+            print(f"Error al cargar la imagen de las balas: {e}")
+            self.projectile_image = None
 
     def take_damage(self, amount):
         """Reduce la salud del jefe."""
@@ -56,7 +62,7 @@ class Boss:
             center_x = self.rect.centerx
             bottom_y = self.rect.bottom
 
-            speed = 6  # Velocidad de las balas
+            speed = 10  # Velocidad de las balas
 
             # Balas hacia abajo
             projectile1 = {
@@ -64,33 +70,33 @@ class Boss:
                 "y": bottom_y,
                 "dx": 0,
                 "dy": speed,
-                "rect": pygame.Rect(center_x - 30, bottom_y, 30, 30)  # Tamaño de la bala
+                "rect": pygame.Rect(center_x - 20, bottom_y, 10, 10)  # Tamaño de la bala
             }
             projectile2 = {
                 "x": center_x + 20,  # Bala ligeramente a la derecha del centro
                 "y": bottom_y,
                 "dx": 0,
                 "dy": speed,
-                "rect": pygame.Rect(center_x + 30, bottom_y, 30, 30)  # Tamaño de la bala
+                "rect": pygame.Rect(center_x + 20, bottom_y, 10, 10)  # Tamaño de la bala
             }
 
             # Balas a ángulos más inclinados hacia abajo
             angle1 = math.radians(70)  # 70 grados hacia la izquierda
-            angle2 = math.radians(110)  # 70 grados hacia la derecha
+            angle2 = math.radians(-70)  # 70 grados hacia la derecha
 
             projectile3 = {
                 "x": center_x,
                 "y": bottom_y,
                 "dx": speed * math.cos(angle1),
                 "dy": speed * math.sin(angle1),
-                "rect": pygame.Rect(center_x, bottom_y, 30, 30)  # Tamaño de la bala
+                "rect": pygame.Rect(center_x, bottom_y, 10, 10)  # Tamaño de la bala
             }
             projectile4 = {
                 "x": center_x,
                 "y": bottom_y,
                 "dx": speed * math.cos(angle2),
                 "dy": speed * math.sin(angle2),
-                "rect": pygame.Rect(center_x, bottom_y, 30, 30)  # Tamaño de la bala
+                "rect": pygame.Rect(center_x, bottom_y, 10, 10)  # Tamaño de la bala
             }
 
             # Agrega las balas a la lista de proyectiles
@@ -107,7 +113,10 @@ class Boss:
 
         # Dibuja los proyectiles
         for projectile in self.projectiles:
-            pygame.draw.rect(screen, (255, 255, 0), projectile["rect"])  # Amarillo para las balas
+            if self.projectile_image:
+                screen.blit(self.projectile_image, projectile["rect"].topleft)  # Dibuja la imagen de las balas
+            else:
+                pygame.draw.rect(screen, (255, 255, 0), projectile["rect"])  # Amarillo para las balas
 
     def update(self, screen_width, screen_height):
         """Actualiza el movimiento, los disparos y los proyectiles del jefe."""
