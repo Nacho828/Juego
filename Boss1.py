@@ -76,7 +76,7 @@ class Boss:
 
             # Balas a ángulos más inclinados hacia abajo
             angle1 = math.radians(70)  # 70 grados hacia la izquierda
-            angle2 = math.radians(-225)  # 70 grados hacia la derecha
+            angle2 = math.radians(160)  # 70 grados hacia la derecha
 
             projectile3 = {
                 "x": center_x,
