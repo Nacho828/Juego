@@ -81,9 +81,9 @@ class Game:
             # Agregar al jefe final si no está ya en pantalla
             if not hasattr(self, 'boss'):
                 self.boss = Boss(960, 100, "assets/boss.png", size=(300, 200))
-                self.boss.move(self.screen.get_width())
-                self.boss.update_projectiles(self.screen.get_height())
-                self.boss.draw(self.screen)
+            self.boss.move(self.screen.get_width())
+            self.boss.update_projectiles(self.screen.get_height())
+            self.boss.draw(self.screen)
 
             # Detectar colisiones entre los proyectiles del jefe y el jugador
             for projectile in self.boss.projectiles:
@@ -103,7 +103,8 @@ class Game:
             # Terminar el juego si el jefe es derrotado
             if self.boss.health <= 0:
                 print("¡Has derrotado al jefe final!")
-            self.is_running = False
+                self.is_running = False
+
     def handle_events(self):
         """Manejar eventos del teclado y otros eventos."""
         keys = pygame.key.get_pressed()
