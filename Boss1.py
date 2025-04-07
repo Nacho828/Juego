@@ -5,7 +5,7 @@ class Boss:
         self.x = x
         self.y = y
         try:
-            self.image = pygame.image.load(image_path)  # Carga la imagen del jefe
+            self.image = pygame.image.load("assets/boss.png")  # Carga la imagen del jefe desde la carpeta assets
             self.image = pygame.transform.scale(self.image, size)  # Escala la imagen al tamaño deseado
         except pygame.error as e:
             print(f"Error al cargar la imagen del jefe: {e}")
