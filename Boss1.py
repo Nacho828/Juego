@@ -62,19 +62,19 @@ class Boss:
             center_x = self.rect.centerx
             bottom_y = self.rect.bottom
 
-            speed = 10  # Velocidad de las balas
-            projectile_size = (20, 20)  # Nuevo tamaño de las balas
+            speed = 5  # Velocidad de las balas
+            projectile_size = (30, 30)  # Nuevo tamaño de las balas
 
             # Balas hacia abajo
             projectile1 = {
-                "x": center_x - 20,  # Bala ligeramente a la izquierda del centro
+                "x": center_x - 30,  # Bala ligeramente a la izquierda del centro
                 "y": bottom_y,
                 "dx": 0,
                 "dy": speed,
                 "rect": pygame.Rect(center_x - 20, bottom_y, *projectile_size)  # Tamaño de la bala
             }
             projectile2 = {
-                "x": center_x + 20,  # Bala ligeramente a la derecha del centro
+                "x": center_x + 30,  # Bala ligeramente a la derecha del centro
                 "y": bottom_y,
                 "dx": 0,
                 "dy": speed,

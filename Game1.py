@@ -83,7 +83,7 @@ class Game:
             # Agregar al jefe final si no está ya en pantalla
             if not hasattr(self, 'boss') or self.boss is None:
                 self.boss = Boss(900, 300, size=(300, 200))  # Crea el jefe si no existe
-                self.boss.health = 10
+                self.boss.health = 20
                 print("¡El jefe final ha aparecido!")
 
             # Verifica que el jefe se haya creado correctamente
