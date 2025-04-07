@@ -6,7 +6,7 @@ Este proyecto es un juego diseñado para ofrecer entretenimiento y diversión. A
 
 1. Clona este repositorio en tu máquina local:
     ```bash
-    git clone https://github.com/usuario/juego.git
+    git clone https://github.com/Nacho828/Juego.git
     ```
 2. Navega al directorio del proyecto:
     ```bash
@@ -42,3 +42,11 @@ Este proyecto es un juego diseñado para ofrecer entretenimiento y diversión. A
 - **Actualizaciones Frecuentes:** Contenido nuevo y mejoras constantes.
 
 ¡Diviértete jugando y no olvides compartir tus comentarios con nosotros!
+
+## Contribuciones
+
+Si deseas contribuir a este proyecto, no dudes en hacer un fork del repositorio y enviar un pull request. También puedes reportar problemas o sugerir mejoras en la sección de [Issues](https://github.com/tu_usuario/juego/issues).
+
+## Autor
+
+Este proyecto fue desarrollado por [tu_usuario](https://github.com/tu_usuario). ¡Visita mi perfil de GitHub para más proyectos interesantes!
