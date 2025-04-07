@@ -33,7 +33,7 @@ class Opponent:
         if self.shoot_cooldown == 0 and random.randint(1, 100) <= 5:  # Probabilidad de disparar (5%)
             projectile = EnemyProjectile(self.rect.centerx, self.rect.bottom)  # Proyectil rojo hacia abajo
             self.projectiles.append(projectile)
-            self.shoot_cooldown = 60  # Establecer un tiempo de espera (60 fotogramas)
+            self.shoot_cooldown = 30  # Establecer un tiempo de espera (60 fotogramas)
 
     def update_projectiles(self, screen_height):
         """Actualizar los proyectiles del enemigo."""
