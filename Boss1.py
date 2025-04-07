@@ -22,7 +22,7 @@ class Boss:
         self.direction_y = 1  # Dirección inicial vertical (1 = abajo, -1 = arriba)
         try:
             self.projectile_image = pygame.image.load("assets/enemy_projectile.png")  # Carga la imagen de las balas
-            self.projectile_image = pygame.transform.scale(self.projectile_image, (10, 10))  # Escala la imagen
+            self.projectile_image = pygame.transform.scale(self.projectile_image, (20, 20))  # Cambia el tamaño de la imagen
         except pygame.error as e:
             print(f"Error al cargar la imagen de las balas: {e}")
             self.projectile_image = None
@@ -63,6 +63,7 @@ class Boss:
             bottom_y = self.rect.bottom
 
             speed = 10  # Velocidad de las balas
+            projectile_size = (20, 20)  # Nuevo tamaño de las balas
 
             # Balas hacia abajo
             projectile1 = {
@@ -70,33 +71,33 @@ class Boss:
                 "y": bottom_y,
                 "dx": 0,
                 "dy": speed,
-                "rect": pygame.Rect(center_x - 20, bottom_y, 10, 10)  # Tamaño de la bala
+                "rect": pygame.Rect(center_x - 20, bottom_y, *projectile_size)  # Tamaño de la bala
             }
             projectile2 = {
                 "x": center_x + 20,  # Bala ligeramente a la derecha del centro
                 "y": bottom_y,
                 "dx": 0,
                 "dy": speed,
-                "rect": pygame.Rect(center_x + 20, bottom_y, 10, 10)  # Tamaño de la bala
+                "rect": pygame.Rect(center_x + 20, bottom_y, *projectile_size)  # Tamaño de la bala
             }
 
             # Balas a ángulos más inclinados hacia abajo
-            angle1 = math.radians(70)  # 70 grados hacia la izquierda
-            angle2 = math.radians(-70)  # 70 grados hacia la derecha
+            angle1 = math.radians(60)  # 60 grados hacia la izquierda
+            angle2 = math.radians(120)  # 60 grados hacia la derecha
 
             projectile3 = {
                 "x": center_x,
                 "y": bottom_y,
                 "dx": speed * math.cos(angle1),
                 "dy": speed * math.sin(angle1),
-                "rect": pygame.Rect(center_x, bottom_y, 10, 10)  # Tamaño de la bala
+                "rect": pygame.Rect(center_x, bottom_y, *projectile_size)  # Tamaño de la bala
             }
             projectile4 = {
                 "x": center_x,
                 "y": bottom_y,
                 "dx": speed * math.cos(angle2),
                 "dy": speed * math.sin(angle2),
-                "rect": pygame.Rect(center_x, bottom_y, 10, 10)  # Tamaño de la bala
+                "rect": pygame.Rect(center_x, bottom_y, *projectile_size)  # Tamaño de la bala
             }
 
             # Agrega las balas a la lista de proyectiles
