@@ -13,6 +13,8 @@ class Boss:
         self.rect = self.image.get_rect(topleft=(self.x, self.y)) if self.image else pygame.Rect(x, y, *size)
         self.health = 10  # Salud inicial del jefe
         self.projectiles = []
+        self.speed = 10  # Velocidad de movimiento
+        self.direction = 1  # Dirección inicial (1 = derecha, -1 = izquierda)
 
     def take_damage(self, amount):
         """Reduce la salud del jefe."""
@@ -20,8 +22,11 @@ class Boss:
         print(f"El jefe ha recibido {amount} de daño. Salud restante: {self.health}")
 
     def move(self, screen_width):
-        # Lógica para mover al jefe (puedes personalizar esto)
-        pass
+        """Mueve al jefe de lado a lado."""
+        self.x += self.speed * self.direction
+        if self.x <= 0 or self.x + self.rect.width >= screen_width:
+            self.direction *= -1  # Cambia de dirección al llegar a los bordes
+        self.rect.topleft = (self.x, self.y)  # Actualiza la posición del rectángulo
 
     def update_projectiles(self, screen_height):
         # Lógica para actualizar los proyectiles del jefe
