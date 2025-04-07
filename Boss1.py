@@ -59,18 +59,18 @@ class Boss:
 
             # Crea las balas
             projectile1 = {
-                "x": center_x - 20,  # Bala ligeramente a la izquierda del centro
+                "x": center_x - 40,  # Bala ligeramente a la izquierda del centro
                 "y": bottom_y,
                 "dx": 0,
                 "dy": speed,
-                "rect": pygame.Rect(center_x - 20, bottom_y, 10, 10)  # Tamaño de la bala
+                "rect": pygame.Rect(center_x - 40, bottom_y, 20, 20)  # Tamaño de la bala
             }
             projectile2 = {
-                "x": center_x + 20,  # Bala ligeramente a la derecha del centro
+                "x": center_x + 40,  # Bala ligeramente a la derecha del centro
                 "y": bottom_y,
                 "dx": 0,
                 "dy": speed,
-                "rect": pygame.Rect(center_x + 20, bottom_y, 10, 10)  # Tamaño de la bala
+                "rect": pygame.Rect(center_x + 40, bottom_y, 20, 20)  # Tamaño de la bala
             }
 
             # Agrega las balas a la lista de proyectiles
