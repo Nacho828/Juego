@@ -25,3 +25,4 @@ class Boss:
     def draw(self, screen):
         # Dibuja el rectángulo que representa al jefe
         pygame.draw.rect(screen, (255, 0, 0), self.rect)  # Rojo para el jefe
+        print(f"Dibujando rectángulo del jefe en posición ({self.rect.x}, {self.rect.y})")

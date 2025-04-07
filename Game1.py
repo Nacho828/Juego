@@ -82,12 +82,12 @@ class Game:
         if len(self.opponents) == 0:
             # Agregar al jefe final si no está ya en pantalla
             if not hasattr(self, 'boss'):
-                self.boss = Boss(900, 300, size=(300, 200), color=(255, 0, 0))  # Crear un rectángulo rojo como jefe
+                self.boss = Boss(900, 300, size=(300, 200))  # Elimina la referencia a la imagen
                 self.boss.health = 10
                 print("¡El jefe final ha aparecido!")
 
             # Dibujar y mover al jefe
-            print(f"Dibujando al jefe en posición ({self.boss.x}, {self.boss.y})")
+            print(f"Dibujando al jefe en posición ({self.boss.rect.x}, {self.boss.rect.y})")
             self.boss.move(self.screen.get_width())
             self.boss.update_projectiles(self.screen.get_height())
             self.boss.draw(self.screen)
