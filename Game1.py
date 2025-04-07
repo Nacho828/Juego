@@ -76,7 +76,34 @@ class Game:
         self.opponents = [opponent for opponent in self.opponents if opponent.health > 0]
 
         pygame.display.flip()
+        # Verificar si todos los enemigos han sido eliminados
+        if not self.opponents:
+            # Agregar al jefe final si no está ya en pantalla
+            if not hasattr(self, 'boss'):
+                self.boss = Boss(960, 100, "assets/boss.png", size=(300, 200))
+                self.boss.move(self.screen.get_width())
+                self.boss.update_projectiles(self.screen.get_height())
+                self.boss.draw(self.screen)
 
+            # Detectar colisiones entre los proyectiles del jefe y el jugador
+            for projectile in self.boss.projectiles:
+                if projectile.rect.colliderect(self.player.rect):
+                    self.lives -= 1
+                    self.boss.projectiles.remove(projectile)
+                    if self.lives <= 0:
+                        self.is_running = False
+
+            # Detectar colisiones entre los proyectiles del jugador y el jefe
+            for projectile in self.projectiles:
+                if projectile.rect.colliderect(self.boss.rect):
+                    self.boss.take_damage(1)
+                    self.projectiles.remove(projectile)
+                    break
+
+            # Terminar el juego si el jefe es derrotado
+            if self.boss.health <= 0:
+                print("¡Has derrotado al jefe final!")
+            self.is_running = False
     def handle_events(self):
         """Manejar eventos del teclado y otros eventos."""
         keys = pygame.key.get_pressed()

@@ -1,9 +1,12 @@
 from Oponent1 import Opponent
+import pygame
 
 class Boss(Opponent):
     def __init__(self, x, y):
         # Llama al constructor de la clase base Opponent
         super().__init__(x, y)
+        self.image = pygame.image.load("boss_image.png").convert_alpha()  # Carga la imagen del jefe
+        self.rect = self.image.get_rect(topleft=(x, y))  # Define el rectángulo del jefe
         self.health = 100  # Salud inicial del jefe final
 
     def special_attack(self):
@@ -30,4 +33,6 @@ class Boss(Opponent):
         """Lógica para manejar cuando el jefe final es derrotado."""
         print("¡El jefe final ha sido derrotado!")
 
-
+    def draw(self, screen):
+        """Dibuja al jefe final en la pantalla."""
+        screen.blit(self.image, self.rect)
