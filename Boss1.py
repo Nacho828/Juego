@@ -1,17 +1,12 @@
 import pygame
 
 class Boss:
-    def __init__(self, x, y, image_path, size=(300, 200)):
+    def __init__(self, x, y, image_path=None, size=(300, 200)):
         self.x = x
         self.y = y
-        try:
-            self.image = pygame.image.load(image_path)  # Carga la imagen del jefe
-            self.image = pygame.transform.scale(self.image, size)  # Escala la imagen al tamaño deseado
-        except pygame.error as e:
-            print(f"Error al cargar la imagen del jefe: {e}")
-            self.image = None
-        self.rect = self.image.get_rect(topleft=(self.x, self.y)) if self.image else pygame.Rect(x, y, *size)
-        self.health = 10
+        self.width, self.height = size
+        self.rect = pygame.Rect(self.x, self.y, self.width, self.height)  # Representa al jefe como un rectángulo
+        self.health = 10  # Salud inicial del jefe
         self.projectiles = []
 
     def take_damage(self, amount):
@@ -28,7 +23,5 @@ class Boss:
         pass
 
     def draw(self, screen):
-        if self.image:
-            screen.blit(self.image, (self.x, self.y))  # Dibuja la imagen en la pantalla
-        else:
-            print("Advertencia: No se puede dibujar el jefe porque la imagen no está cargada.")
+        # Dibuja el rectángulo que representa al jefe
+        pygame.draw.rect(screen, (255, 0, 0), self.rect)  # Rojo para el jefe
