@@ -87,7 +87,7 @@ class Game:
                 print("¡El jefe final ha aparecido!")
 
             # Dibujar y mover al jefe
-            print(f"Dibujando al jefe en posición ({self.boss.rect.x}, {self.boss.rect.y})")
+            print(f"Dibujando al jefe en posición ({self.boss.rect.left}, {self.boss.rect.top})")
             self.boss.move(self.screen.get_width())
             self.boss.update_projectiles(self.screen.get_height())
             self.boss.draw(self.screen)
