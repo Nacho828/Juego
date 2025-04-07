@@ -1,5 +1,6 @@
 import pygame
 import math
+import random
 
 class Boss:
     def __init__(self, x, y, image_path="assets/boss.png", size=(300, 200)):
@@ -20,6 +21,7 @@ class Boss:
         self.speed_y = 2  # Velocidad de movimiento vertical (aumentada)
         self.direction_x = 1  # Dirección inicial horizontal (1 = derecha, -1 = izquierda)
         self.direction_y = 1  # Dirección inicial vertical (1 = abajo, -1 = arriba)
+        self.change_direction_chance = 0.01  # Probabilidad de cambiar de dirección en cada frame (1%)
         try:
             self.projectile_image = pygame.image.load("assets/enemy_projectile.png")  # Carga la imagen de las balas
             self.projectile_image = pygame.transform.scale(self.projectile_image, (45, 45))  # Cambia el tamaño de la imagen
@@ -33,7 +35,7 @@ class Boss:
         print(f"El jefe ha recibido {amount} de daño. Salud restante: {self.health}")
 
     def move(self, screen_width, screen_height):
-        """Mueve al jefe de lado a lado y más hacia arriba y abajo."""
+        """Mueve al jefe de lado a lado y más hacia arriba y abajo, cambiando de dirección aleatoriamente."""
         # Movimiento horizontal
         self.x += self.speed_x * self.direction_x
         if self.x <= 0 or self.x + self.rect.width >= screen_width:
@@ -43,6 +45,12 @@ class Boss:
         self.y += self.speed_y * self.direction_y
         if self.y <= 50 or self.y + self.rect.height >= screen_height // 2:  # Aumenta el rango vertical
             self.direction_y *= -1  # Cambia de dirección al llegar a los bordes verticales
+
+        # Cambio de dirección aleatorio
+        if random.random() < self.change_direction_chance:
+            self.direction_x *= -1  # Cambia la dirección horizontal aleatoriamente
+        if random.random() < self.change_direction_chance:
+            self.direction_y *= -1  # Cambia la dirección vertical aleatoriamente
 
         # Actualiza la posición del rectángulo
         self.rect.topleft = (self.x, self.y)
