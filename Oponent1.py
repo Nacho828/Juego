@@ -10,7 +10,7 @@ class Opponent:
         self.rect.topleft = (x, y)
         self.speed = 3
         self.direction = 1
-        self.health = 10
+        self.health = 1
         self.projectiles = []  # Lista para almacenar los proyectiles del enemigo
         self.shoot_cooldown = 0  # Temporizador para controlar el disparo
 
