@@ -16,8 +16,8 @@ class Boss:
         self.projectiles = []  # Lista para almacenar los proyectiles disparados
         self.shoot_cooldown = 30  # Tiempo entre disparos (en frames)
         self.shoot_timer = 0  # Temporizador para controlar los disparos
-        self.speed_x = 5  # Velocidad de movimiento horizontal
-        self.speed_y = 4  # Velocidad de movimiento vertical (aumentada)
+        self.speed_x = 4  # Velocidad de movimiento horizontal
+        self.speed_y = 2  # Velocidad de movimiento vertical (aumentada)
         self.direction_x = 1  # Dirección inicial horizontal (1 = derecha, -1 = izquierda)
         self.direction_y = 1  # Dirección inicial vertical (1 = abajo, -1 = arriba)
         try:
