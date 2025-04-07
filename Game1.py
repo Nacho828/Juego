@@ -42,7 +42,7 @@ class Game:
 
     def update(self):
         """Actualizar la lógica del juego."""
-        self.screen.fill((10, 10, 10))  # Fondo negro
+        draw_gradient(self.screen, (30, 30, 30), (0, 0, 0))  # Degradado de gris oscuro a negro
 
         # Dibujar al jugador
         self.player.draw(self.screen)
