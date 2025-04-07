@@ -29,6 +29,7 @@ class Game:
             Opponent(1200, 250, "assets/enemy2.png"),
             Opponent(200, 350, "assets/enemy3.png")
         ]
+        self.boss = None  # Inicializar el jefe como None
         self.projectiles = []
         # Lista para almacenar los proyectiles del jugador
 
@@ -81,7 +82,7 @@ class Game:
         if len(self.opponents) == 0:
             # Agregar al jefe final si no está ya en pantalla
             if not hasattr(self, 'boss'):
-                self.boss = Boss(900, 300, size=(300, 200))  # Elimina la referencia a la imagen
+                self.boss = Boss(900, 300, size=(300, 200), color=(255, 0, 0))  # Crear un rectángulo rojo como jefe
                 self.boss.health = 10
                 print("¡El jefe final ha aparecido!")
 
