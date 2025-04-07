@@ -41,7 +41,7 @@ class Game:
 
     def update(self):
         """Actualizar la lógica del juego."""
-        self.screen.fill((0, 0, 0))  # Fondo negro
+        self.screen.fill((10, 10, 10))  # Fondo negro
 
         # Dibujar al jugador
         self.player.draw(self.screen)
@@ -81,18 +81,15 @@ class Game:
         if len(self.opponents) == 0:
             # Agregar al jefe final si no está ya en pantalla
             if not hasattr(self, 'boss'):
-                self.boss = Boss(900, 300, "assets/boss.png", size=(300, 200))  # Ruta relativa
+                self.boss = Boss(900, 300, size=(300, 200))  # Elimina la referencia a la imagen
                 self.boss.health = 10
                 print("¡El jefe final ha aparecido!")
 
             # Dibujar y mover al jefe
-            if self.boss.image is None:
-                print("Error: La imagen del jefe no se cargó correctamente.")
-            else:
-                print(f"Dibujando al jefe en posición ({self.boss.x}, {self.boss.y})")
-                self.boss.move(self.screen.get_width())
-                self.boss.update_projectiles(self.screen.get_height())
-                self.boss.draw(self.screen)
+            print(f"Dibujando al jefe en posición ({self.boss.x}, {self.boss.y})")
+            self.boss.move(self.screen.get_width())
+            self.boss.update_projectiles(self.screen.get_height())
+            self.boss.draw(self.screen)
 
             # Detectar colisiones entre los proyectiles del jefe y el jugador
             for projectile in self.boss.projectiles:
