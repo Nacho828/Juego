@@ -14,7 +14,7 @@ class Boss:
         self.rect = self.image.get_rect(topleft=(self.x, self.y)) if self.image else pygame.Rect(x, y, *size)
         self.health = 10  # Salud inicial del jefe
         self.projectiles = []  # Lista para almacenar los proyectiles disparados
-        self.shoot_cooldown = 60  # Tiempo entre disparos (en frames)
+        self.shoot_cooldown = 30  # Tiempo entre disparos (en frames, reducido para mayor frecuencia)
         self.shoot_timer = 0  # Temporizador para controlar los disparos
         self.speed_x = 5  # Velocidad de movimiento horizontal
         self.speed_y = 4  # Velocidad de movimiento vertical (aumentada)
@@ -41,41 +41,36 @@ class Boss:
         # Actualiza la posición del rectángulo
         self.rect.topleft = (self.x, self.y)
 
-    def update_projectiles(self, screen_height):
+    def update_projectiles(self, screen_width, screen_height):
         """Actualiza la posición de los proyectiles y elimina los que salen de la pantalla."""
         for projectile in self.projectiles[:]:
-            projectile["x"] += projectile["dx"]
-            projectile["y"] += projectile["dy"]
+            projectile["y"] += projectile["dy"]  # Movimiento hacia abajo
             projectile["rect"].topleft = (projectile["x"], projectile["y"])
-            if projectile["y"] > screen_height or projectile["x"] < 0 or projectile["x"] > screen_width:
+            if projectile["y"] > screen_height:  # Elimina proyectiles que salen de la pantalla
                 self.projectiles.remove(projectile)
 
     def shoot(self):
-        """Dispara dos balas a 45 grados desde el centro del jefe."""
+        """Dispara dos balas hacia abajo desde el centro del jefe."""
         if self.shoot_timer == 0:
             center_x = self.rect.centerx
-            center_y = self.rect.centery
-
-            # Calcula las direcciones de las balas
-            angle1 = math.radians(45)  # 45 grados
-            angle2 = math.radians(-45)  # -45 grados
+            bottom_y = self.rect.bottom
 
             speed = 10  # Velocidad de las balas
 
             # Crea las balas
             projectile1 = {
-                "x": center_x,
-                "y": center_y,
-                "dx": speed * math.cos(angle1),
-                "dy": speed * math.sin(angle1),
-                "rect": pygame.Rect(center_x, center_y, 10, 10)  # Tamaño de la bala
+                "x": center_x - 20,  # Bala ligeramente a la izquierda del centro
+                "y": bottom_y,
+                "dx": 0,
+                "dy": speed,
+                "rect": pygame.Rect(center_x - 20, bottom_y, 10, 10)  # Tamaño de la bala
             }
             projectile2 = {
-                "x": center_x,
-                "y": center_y,
-                "dx": speed * math.cos(angle2),
-                "dy": speed * math.sin(angle2),
-                "rect": pygame.Rect(center_x, center_y, 10, 10)  # Tamaño de la bala
+                "x": center_x + 20,  # Bala ligeramente a la derecha del centro
+                "y": bottom_y,
+                "dx": 0,
+                "dy": speed,
+                "rect": pygame.Rect(center_x + 20, bottom_y, 10, 10)  # Tamaño de la bala
             }
 
             # Agrega las balas a la lista de proyectiles
@@ -98,7 +93,7 @@ class Boss:
     def update(self, screen_width, screen_height):
         """Actualiza el movimiento, los disparos y los proyectiles del jefe."""
         self.move(screen_width, screen_height)
-        self.update_projectiles(screen_height)
+        self.update_projectiles(screen_width, screen_height)
         if self.shoot_timer > 0:
             self.shoot_timer -= 1
         self.shoot()
