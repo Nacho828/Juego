@@ -81,7 +81,7 @@ class Game:
         if len(self.opponents) == 0:
             # Agregar al jefe final si no está ya en pantalla
             if not hasattr(self, 'boss'):
-                self.boss = Boss(960, 100, "assets/boss.png", size=(300, 200))  # Ruta relativa
+                self.boss = Boss(900, 300, "assets/boss.png", size=(300, 200))  # Ruta relativa
                 self.boss.health = 10  # Asegúrate de inicializar la salud del jefe
                 print("¡El jefe final ha aparecido!")
 
