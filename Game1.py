@@ -89,6 +89,7 @@ class Game:
             if self.boss.image is None:
                 print("Error: La imagen del jefe no se cargó correctamente.")
             else:
+                print(f"Dibujando al jefe en posición ({self.boss.x}, {self.boss.y})")
                 self.boss.move(self.screen.get_width())
                 self.boss.update_projectiles(self.screen.get_height())
                 self.boss.draw(self.screen)  # Asegúrate de que el método draw funcione correctamente
