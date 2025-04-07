@@ -1,4 +1,5 @@
 import pygame
+import math
 
 class Boss:
     def __init__(self, x, y, image_path="assets/boss.png", size=(300, 200)):
@@ -12,7 +13,9 @@ class Boss:
             self.image = None
         self.rect = self.image.get_rect(topleft=(self.x, self.y)) if self.image else pygame.Rect(x, y, *size)
         self.health = 10  # Salud inicial del jefe
-        self.projectiles = []
+        self.projectiles = []  # Lista para almacenar los proyectiles disparados
+        self.shoot_cooldown = 60  # Tiempo entre disparos (en frames)
+        self.shoot_timer = 0  # Temporizador para controlar los disparos
         self.speed_x = 5  # Velocidad de movimiento horizontal
         self.speed_y = 4  # Velocidad de movimiento vertical (aumentada)
         self.direction_x = 1  # Dirección inicial horizontal (1 = derecha, -1 = izquierda)
@@ -39,11 +42,63 @@ class Boss:
         self.rect.topleft = (self.x, self.y)
 
     def update_projectiles(self, screen_height):
-        # Lógica para actualizar los proyectiles del jefe
-        pass
+        """Actualiza la posición de los proyectiles y elimina los que salen de la pantalla."""
+        for projectile in self.projectiles[:]:
+            projectile["x"] += projectile["dx"]
+            projectile["y"] += projectile["dy"]
+            projectile["rect"].topleft = (projectile["x"], projectile["y"])
+            if projectile["y"] > screen_height or projectile["x"] < 0 or projectile["x"] > screen_width:
+                self.projectiles.remove(projectile)
+
+    def shoot(self):
+        """Dispara dos balas a 45 grados desde el centro del jefe."""
+        if self.shoot_timer == 0:
+            center_x = self.rect.centerx
+            center_y = self.rect.centery
+
+            # Calcula las direcciones de las balas
+            angle1 = math.radians(45)  # 45 grados
+            angle2 = math.radians(-45)  # -45 grados
+
+            speed = 10  # Velocidad de las balas
+
+            # Crea las balas
+            projectile1 = {
+                "x": center_x,
+                "y": center_y,
+                "dx": speed * math.cos(angle1),
+                "dy": speed * math.sin(angle1),
+                "rect": pygame.Rect(center_x, center_y, 10, 10)  # Tamaño de la bala
+            }
+            projectile2 = {
+                "x": center_x,
+                "y": center_y,
+                "dx": speed * math.cos(angle2),
+                "dy": speed * math.sin(angle2),
+                "rect": pygame.Rect(center_x, center_y, 10, 10)  # Tamaño de la bala
+            }
+
+            # Agrega las balas a la lista de proyectiles
+            self.projectiles.append(projectile1)
+            self.projectiles.append(projectile2)
+
+            # Reinicia el temporizador de disparo
+            self.shoot_timer = self.shoot_cooldown
 
     def draw(self, screen):
         if self.image:
             screen.blit(self.image, (self.x, self.y))  # Dibuja la imagen en la pantalla
         else:
             print("Advertencia: No se puede dibujar el jefe porque la imagen no está cargada.")
+
+        # Dibuja los proyectiles
+        for projectile in self.projectiles:
+            pygame.draw.rect(screen, (255, 255, 0), projectile["rect"])  # Amarillo para las balas
+
+    def update(self, screen_width, screen_height):
+        """Actualiza el movimiento, los disparos y los proyectiles del jefe."""
+        self.move(screen_width, screen_height)
+        self.update_projectiles(screen_height)
+        if self.shoot_timer > 0:
+            self.shoot_timer -= 1
+        self.shoot()
