@@ -13,7 +13,7 @@ class Boss:
         self.rect = self.image.get_rect(topleft=(self.x, self.y)) if self.image else pygame.Rect(x, y, *size)
         self.health = 10  # Salud inicial del jefe
         self.projectiles = []
-        self.speed_x = 5  # Velocidad de movimiento horizontal
+        self.speed_x = 7  # Velocidad de movimiento horizontal
         self.speed_y = 2  # Velocidad de movimiento vertical
         self.direction_x = 1  # Dirección inicial horizontal (1 = derecha, -1 = izquierda)
         self.direction_y = 1  # Dirección inicial vertical (1 = abajo, -1 = arriba)

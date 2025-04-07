@@ -89,7 +89,7 @@ class Game:
             # Verifica que el jefe se haya creado correctamente
             if self.boss is not None:
                 print(f"Dibujando al jefe en posición ({self.boss.rect.left}, {self.boss.rect.top})")
-                self.boss.move(self.screen.get_width())
+                self.boss.move(self.screen.get_width(), self.screen.get_height())  # Pasa ambos argumentos
                 self.boss.update_projectiles(self.screen.get_height())
                 self.boss.draw(self.screen)
             else:
