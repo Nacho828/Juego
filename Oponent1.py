@@ -12,7 +12,7 @@ class Opponent:
         self.direction = 1
         self.health = 1
         self.projectiles = []  # Lista para almacenar los proyectiles del enemigo
-        self.shoot_cooldown = 0  # Temporizador para controlar el disparo
+        self.shoot_cooldown = 0  # Temporizador para controlar el disparo (inicializado en 0)
 
     def draw(self, screen):
         """Dibujar al enemigo y sus proyectiles."""
@@ -37,7 +37,7 @@ class Opponent:
 
     def update_projectiles(self, screen_height):
         """Actualizar los proyectiles del enemigo."""
-        if self.shoot_cooldown > 0:
+        if hasattr(self, 'shoot_cooldown') and self.shoot_cooldown > 0:  # Verificar si shoot_cooldown está definido
             self.shoot_cooldown -= 1  # Reducir el temporizador en cada fotograma
 
         for projectile in self.projectiles:
