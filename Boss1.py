@@ -5,7 +5,7 @@ class Boss:
         self.x = x
         self.y = y
         try:
-            self.image = pygame.image.load("assets/boss.png")  # Carga la imagen del jefe desde la carpeta assets
+            self.image = pygame.image.load(image_path)  # Carga la imagen del jefe
             self.image = pygame.transform.scale(self.image, size)  # Escala la imagen al tamaño deseado
         except pygame.error as e:
             print(f"Error al cargar la imagen del jefe: {e}")
@@ -13,14 +13,6 @@ class Boss:
         self.rect = self.image.get_rect(topleft=(self.x, self.y)) if self.image else pygame.Rect(x, y, *size)
         self.health = 10
         self.projectiles = []
-
-    def take_damage(self, amount):
-        """Reduce la salud del jefe."""
-        self.health -= amount
-        print(f"El jefe ha recibido {amount} de daño. Salud restante: {self.health}")
-        if self.health <= 0:
-            self.health = 0
-            print("¡El jefe ha sido derrotado!")
 
     def move(self, screen_width):
         # Lógica para mover al jefe (puedes personalizar esto)
