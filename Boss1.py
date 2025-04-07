@@ -12,7 +12,7 @@ class Boss:
             print(f"Error al cargar la imagen del jefe: {e}")
             self.image = None
         self.rect = self.image.get_rect(topleft=(self.x, self.y)) if self.image else pygame.Rect(x, y, *size)
-        self.health = 20  # Salud inicial del jefe
+        self.health = 50  # Salud inicial del jefe
         self.projectiles = []  # Lista para almacenar los proyectiles disparados
         self.shoot_cooldown = 60  # Tiempo entre disparos (en frames)
         self.shoot_timer = 0  # Temporizador para controlar los disparos
